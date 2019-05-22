@@ -1,6 +1,12 @@
-<!doctype html>
+{% extends 'base.html' %}
+{% block header %}
+  <h1>{% block title %}New Post{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
 <html>
 <body>
     <p>Hi, everyone. My name is Arjun, and this is my website. Note: I don't eat <a href="{{url_for('page')}}">bacon.</a></p>
 </body>
 </html>
+{% endblock %}
