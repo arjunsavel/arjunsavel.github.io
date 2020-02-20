@@ -2682,23 +2682,16 @@ input, select, textarea {
 /* Main */
 
 	#main {
-		margin-left: 35%;
-		max-width: 54em;
-		padding: 8em 4em 4em 4em;
-		width: calc(100% - 35%);
+		padding: 0em 0 6em 0 ;
 	}
 
-		#main > section {
-			border-top: solid 2px #efefef;
-			margin: 4em 0 0 0;
-			padding: 4em 0 0 0;
-		}
+		@media screen and (max-width: 736px) {
 
-			#main > section:first-child {
-				border-top: 0;
-				margin-top: 0;
-				padding-top: 0;
+			#main {
+				padding: 0em 0 4em 0 ;
 			}
+
+		}
 
 /* Poptrox */
 
