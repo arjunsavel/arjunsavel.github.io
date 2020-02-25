@@ -290,6 +290,12 @@ input, select, textarea {
 
 		}
 
+/* anime */
+	.ml3 {
+	  font-weight: 900;
+	  font-size: 3.5em;
+	}
+
 /* Row */
 
 	.row {
