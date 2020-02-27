@@ -3,7 +3,7 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
-import anime from 'animejs/lib/anime.es.js';
+const anime = require(["anime"]);
 
 // Wrap every letter in a span
 var textWrapper = document.querySelector('.ml3');

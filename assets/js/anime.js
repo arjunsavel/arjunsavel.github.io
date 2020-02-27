@@ -4,6 +4,25 @@
  * Released under the MIT license
  * animejs.com
  */
+// Wrap every letter in a span
+var textWrapper = document.querySelector('.ml3');
+textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+anime.timeline({loop: true})
+  .add({
+    targets: '.ml3 .letter',
+    opacity: [0,1],
+    easing: "easeInOutQuad",
+    duration: 2250,
+    delay: (el, i) => 150 * (i+1)
+  }).add({
+    targets: '.ml3',
+    opacity: 0,
+    duration: 1000,
+    easing: "easeOutExpo",
+    delay: 1000
+  });
+'use strict';
 
 // Defaults
 
@@ -79,7 +98,7 @@ function parseEasingParameters(string) {
 
 // Spring solver inspired by Webkit Copyright © 2016 Apple Inc. All rights reserved. https://webkit.org/demos/spring/spring.js
 
-export function spring(string, duration) {
+function spring(string, duration) {
 
   var params = parseEasingParameters(string);
   var mass = minMax(is.und(params[0]) ? 1 : params[0], .1, 100);
@@ -1277,4 +1296,4 @@ anime.easing = parseEasings;
 anime.penner = penner;
 anime.random = function (min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; };
 
-export default anime;
+module.exports = anime;
