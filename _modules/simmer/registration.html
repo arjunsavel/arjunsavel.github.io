@@ -1,0 +1,693 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>simmer.registration &mdash; SImMER 1.0.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'1.0.0',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SImMER
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/about.html">About SImMER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/Using.html">Using the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/FAQ.html">FAQ</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/simmer.html">SImMER documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SImMER</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>simmer.registration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for simmer.registration</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module containing all functions related to image center-finding</span>
+<span class="sd">and stacking.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+
+<span class="kn">from</span> <span class="nn">skimage.feature</span> <span class="k">import</span> <span class="n">peak_local_max</span>
+
+<span class="kn">import</span> <span class="nn">skimage</span>
+
+<span class="c1"># from scipy.misc import imresize</span>
+
+
+<span class="kn">from</span> <span class="nn">scipy.ndimage.filters</span> <span class="k">import</span> <span class="n">median_filter</span>
+<span class="kn">from</span> <span class="nn">scipy.ndimage.interpolation</span> <span class="k">import</span> <span class="n">rotate</span>
+<span class="kn">from</span> <span class="nn">scipy.ndimage.interpolation</span> <span class="k">import</span> <span class="n">shift</span> <span class="k">as</span> <span class="n">subpix_shift</span>
+
+
+
+<div class="viewcode-block" id="roll_shift"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.roll_shift">[docs]</a><span class="k">def</span> <span class="nf">roll_shift</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">shifts</span><span class="p">,</span> <span class="n">cval</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Enter shifts as (drow, dcol)&#39;&#39;&#39;</span>
+    <span class="n">first_roll</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">shifts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">shifts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">first_roll</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">shifts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">cval</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">first_roll</span><span class="p">[</span><span class="n">shifts</span><span class="p">[</span><span class="mi">0</span><span class="p">]:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">cval</span>
+    
+    <span class="n">second_roll</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">first_roll</span><span class="p">,</span> <span class="n">shifts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">shifts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">second_roll</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="n">shifts</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cval</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">second_roll</span><span class="p">[:,</span> <span class="n">shifts</span><span class="p">[</span><span class="mi">1</span><span class="p">]:]</span> <span class="o">=</span> <span class="n">cval</span>
+    
+    <span class="k">return</span> <span class="n">second_roll</span></div>
+
+
+<div class="viewcode-block" id="register_bruteforce"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.register_bruteforce">[docs]</a><span class="k">def</span> <span class="nf">register_bruteforce</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">rough_center</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs the default image registration scheme. Shifts the center of the</span>
+<span class="sd">    image to the peak.</span>
+<span class="sd">    </span>
+<span class="sd">    inputs:</span>
+<span class="sd">        image : (2-d array) photon counts at each pixel of each science image.</span>
+<span class="sd">        rough_center : (2-d array, default None) location of primary star. This</span>
+<span class="sd">                        argument is only passed in the wide binary case.</span>
+<span class="sd">                    </span>
+<span class="sd">    outputs:</span>
+<span class="sd">        image_centered : (2-d array) image cenered by the rotations method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">search_threshold</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs a binary search along local max thresholds. Returns coordinates corresponding</span>
+<span class="sd">        to a threshold that only returns, at most, 3 peaks in the image.</span>
+
+<span class="sd">        outputs:</span>
+<span class="sd">            coordinates : (list) a m x 2 array</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">max_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">min_val</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># no negative values will be out peak</span>
+
+        <span class="c1"># now perform binary search; first initialize lower, upper bounds</span>
+        <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">min_val</span>
+        <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">max_val</span>
+        <span class="k">while</span> <span class="n">lower_bound</span> <span class="o">&lt;=</span> <span class="n">upper_bound</span><span class="p">:</span>
+            <span class="n">threshold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">lower_bound</span> <span class="o">+</span> <span class="n">upper_bound</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">coordinates</span> <span class="o">=</span> <span class="n">peak_local_max</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">min_distance</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">threshold_abs</span><span class="o">=</span><span class="n">threshold</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">threshold</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">threshold</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">coordinates</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="n">im_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">cent</span> <span class="o">=</span> <span class="p">(</span><span class="n">im_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">im_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rough_center</span><span class="p">:</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">im_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="n">small_image</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="n">rough_center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">scale</span> <span class="p">:</span> <span class="n">rough_center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">scale</span><span class="p">,</span>
+                            <span class="n">rough_center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">scale</span> <span class="p">:</span> <span class="n">rough_center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">scale</span><span class="p">]</span>
+        <span class="c1"># now do binary search</span>
+        <span class="n">small_coordinates</span> <span class="o">=</span> <span class="n">search_threshold</span><span class="p">(</span><span class="n">small_image</span><span class="p">)</span>
+        <span class="n">coordinates_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">rough_center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">scale</span><span class="p">)</span> <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">small_coordinates</span><span class="p">]</span>
+        <span class="n">coordinates_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">rough_center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">scale</span><span class="p">)</span> <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">small_coordinates</span><span class="p">]</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">coordinates_y</span><span class="p">,</span> <span class="n">coordinates_x</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">search_threshold</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">num_rows</span><span class="p">,</span> <span class="n">num_cols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">cent</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">num_rows</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_cols</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">base_position</span> <span class="o">=</span> <span class="n">cent</span>  <span class="c1">#if no other information available, use center</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># if the algorithm failed</span>
+        <span class="k">return</span> <span class="p">[]</span> <span class="c1"># pass that along</span>
+        
+    <span class="n">yshift</span> <span class="o">=</span> <span class="n">base_position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">xshift</span> <span class="o">=</span> <span class="n">base_position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+     
+    <span class="n">image_centered</span> <span class="o">=</span> <span class="n">roll_shift</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">yshift</span><span class="p">,</span> <span class="n">xshift</span><span class="p">))</span> 
+    <span class="k">return</span> <span class="n">image_centered</span></div>
+        
+<div class="viewcode-block" id="find_wide_binary"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.find_wide_binary">[docs]</a><span class="k">def</span> <span class="nf">find_wide_binary</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs the first step of image registration for a science image that</span>
+<span class="sd">    contains a wide binary. User input selects which target is the primary star</span>
+<span class="sd">    of interest in the first frame of the target.</span>
+<span class="sd">    </span>
+<span class="sd">    inputs:</span>
+<span class="sd">        image : (2-d array) photon counts at each pixel of each science image.</span>
+<span class="sd">        relative : (2-d array, default None) location of primary star. This</span>
+<span class="sd">                    argument is only passed in the wide binary case.</span>
+<span class="sd">                    </span>
+<span class="sd">    outputs:</span>
+<span class="sd">        image_centered : (2-d array) image cenered by the rotations method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">onclick</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+        <span class="n">click_x</span><span class="p">,</span> <span class="n">click_y</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">xdata</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">ydata</span>
+        <span class="n">rough_center</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">click_y</span><span class="p">,</span> <span class="n">click_x</span><span class="p">))</span>
+
+        <span class="c1"># Only select one star</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rough_center</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">mpl_disconnect</span><span class="p">(</span><span class="n">cid</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+    <span class="n">cid</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span><span class="s1">&#39;button_press_event&#39;</span><span class="p">,</span> <span class="n">onclick</span><span class="p">)</span>
+
+    <span class="n">rough_center</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># fig.canvas.mpl_connect(&#39;button_press_event&#39;, onclick)</span>
+    <span class="k">return</span> <span class="n">rough_center</span></div>
+
+
+<div class="viewcode-block" id="register_saturated"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.register_saturated">[docs]</a><span class="k">def</span> <span class="nf">register_saturated</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ssize1</span><span class="p">,</span> <span class="n">newshifts1</span><span class="p">,</span> <span class="n">rough_center</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs image registration when a saturated star is present in</span>
+<span class="sd">    the science image.</span>
+<span class="sd">    </span>
+<span class="sd">    inputs:</span>
+<span class="sd">        image : (2-d array) photon counts at each pixel of each science image.</span>
+<span class="sd">        rough_center : (2-d array, default None) location of primary star. This</span>
+<span class="sd">                        argument is only passed in the wide binary case.</span>
+<span class="sd">                    </span>
+<span class="sd">    outputs:</span>
+<span class="sd">        image_centered : (2-d array) image centered by the rotations method.</span>
+<span class="sd">        rot : the rotation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">im_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">cent</span> <span class="o">=</span> <span class="p">(</span><span class="n">im_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">im_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rough_center</span><span class="p">:</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">im_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="n">rough_center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">scale</span> <span class="p">:</span> <span class="n">rough_center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">scale</span><span class="p">,</span>
+                      <span class="n">rough_center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">scale</span> <span class="p">:</span> <span class="n">rough_center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">scale</span><span class="p">]</span>
+    
+    <span class="n">res1</span><span class="p">,</span> <span class="n">im1</span><span class="p">,</span> <span class="p">(</span><span class="n">xshift1</span><span class="p">,</span> <span class="n">yshift1</span><span class="p">)</span> <span class="o">=</span> <span class="n">run_rot</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ssize1</span><span class="p">,</span> <span class="n">cent</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+    <span class="n">rot</span> <span class="o">=</span> <span class="n">res1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">res1</span><span class="p">)</span>
+    <span class="n">newshifts1</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">yshift1</span><span class="p">,</span> <span class="n">xshift1</span><span class="p">))</span>
+    <span class="n">image_centered</span> <span class="o">=</span> <span class="n">subpix_shift</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">yshift1</span><span class="p">,</span> <span class="n">xshift1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">image_centered</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="n">newshifts1</span></div>
+
+<div class="viewcode-block" id="rot_search"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.rot_search">[docs]</a><span class="k">def</span> <span class="nf">rot_search</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">x_initial</span><span class="p">,</span> <span class="n">y_initial</span><span class="p">,</span> <span class="n">xrad</span><span class="p">,</span> <span class="n">yrad</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform rotational search.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># calculate offset from center</span>
+    <span class="n">xoffset</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">x_initial</span> <span class="c1"># from center of x</span>
+    <span class="n">yoffset</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">y_initial</span>
+    <span class="c1"># calcualte roll shifts for all x and y combinations within the </span>
+    <span class="c1"># xrad, yrad regimes from the offset</span>
+    <span class="n">x_grid</span><span class="p">,</span> <span class="n">y_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">xoffset</span> <span class="o">+</span> <span class="n">xrad</span><span class="p">,</span> <span class="n">xoffset</span> <span class="o">-</span> <span class="n">xrad</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> 
+                         <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">yoffset</span> <span class="o">+</span> <span class="n">yrad</span><span class="p">,</span> <span class="n">yoffset</span> <span class="o">-</span> <span class="n">yrad</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">xshift</span><span class="p">,</span> <span class="n">yshift</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_grid</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">y_grid</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
+        <span class="n">rolled</span> <span class="o">=</span> <span class="n">roll2d</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">xshift</span><span class="p">,</span> <span class="n">yshift</span><span class="p">)</span>
+        <span class="n">tot</span> <span class="o">=</span> <span class="n">rotate_sub</span><span class="p">(</span><span class="n">rolled</span><span class="p">)</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tot</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">yrad</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">xrad</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    
+    <span class="n">pix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">out</span><span class="p">),</span> <span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">xshift</span> <span class="o">=</span> <span class="n">x_grid</span><span class="p">[</span><span class="n">pix</span><span class="p">]</span>
+    <span class="n">yshift</span> <span class="o">=</span> <span class="n">y_grid</span><span class="p">[</span><span class="n">pix</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="p">(</span><span class="n">xshift</span><span class="p">,</span> <span class="n">yshift</span><span class="p">),</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="roll2d"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.roll2d">[docs]</a><span class="k">def</span> <span class="nf">roll2d</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">xshift</span><span class="p">,</span> <span class="n">yshift</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Essentially performs numpy roll function in 2 dimensions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#do x first</span>
+<span class="c1">#     for d in dat:</span>
+<span class="c1">#         dat = list(map(int, d))</span>
+    <span class="n">xshift</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">xshift</span><span class="p">)</span>
+    <span class="n">yshift</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">yshift</span><span class="p">)</span>
+    <span class="n">dat2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">xshift</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1">#zero out the wrapped around values</span>
+    <span class="k">if</span> <span class="n">xshift</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">dat2</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="n">xshift</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dat2</span><span class="p">[:,</span> <span class="n">dat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">xshift</span><span class="p">:</span><span class="n">dat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#plus sign because xshift is negative</span>
+    <span class="c1">#now do y in similar fashion</span>
+    <span class="n">dat2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">dat2</span><span class="p">,</span> <span class="n">yshift</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">yshift</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">dat2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">yshift</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dat2</span><span class="p">[</span><span class="n">dat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">yshift</span><span class="p">:</span><span class="n">dat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">dat2</span></div>
+
+
+<div class="viewcode-block" id="rotate_sub"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.rotate_sub">[docs]</a><span class="k">def</span> <span class="nf">rotate_sub</span><span class="p">(</span><span class="n">dat</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Rotate the image about the center point, then subtract from original and record residuals.</span>
+<span class="sd">    Does this at set angles.&#39;&#39;&#39;</span>
+    <span class="n">angles</span> <span class="o">=</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">270</span><span class="p">]</span>
+    <span class="n">total_residuals</span> <span class="o">=</span> <span class="mf">0.</span>
+    
+    <span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="n">angles</span><span class="p">:</span>
+        <span class="n">rotated_dat</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">reshape</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">residuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dat</span> <span class="o">-</span> <span class="n">rotated_dat</span><span class="p">))</span>
+        <span class="n">total_residuals</span> <span class="o">+=</span> <span class="n">residuals</span>
+    <span class="k">return</span> <span class="n">total_residuals</span></div>
+
+
+<div class="viewcode-block" id="calc_shifts"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.calc_shifts">[docs]</a><span class="k">def</span> <span class="nf">calc_shifts</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">x_initial</span><span class="p">,</span> <span class="n">y_initial</span><span class="p">,</span> <span class="n">xrad</span><span class="p">,</span> <span class="n">yrad</span><span class="p">,</span> <span class="n">find</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;radon&#39;</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Do the radon search and then translate back to image coordinates.&#39;&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;rotate&#39;</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">rot_search</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">x_initial</span><span class="p">,</span> <span class="n">y_initial</span><span class="p">,</span> <span class="n">xrad</span><span class="p">,</span> <span class="n">yrad</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="c1"># elif method == &#39;radon&#39;:</span>
+    <span class="c1">#     out = radonSearch(dat, x0, y0, xrad, yrad)</span>
+
+    <span class="c1">#interpolate</span>
+    <span class="n">interped_out</span> <span class="o">=</span> <span class="n">imresize</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="n">interp</span><span class="o">=</span><span class="s1">&#39;bicubic&#39;</span><span class="p">)</span>
+    <span class="c1"># im = Image.fromarray(out) # trying PIL</span>
+    <span class="c1"># size = tuple((np.array(im.size) * 100.).astype(int))</span>
+    <span class="c1"># interped_out = np.array(im.resize(size, Image.BICUBIC))</span>
+    <span class="k">if</span> <span class="n">find</span> <span class="o">==</span> <span class="s1">&#39;max&#39;</span><span class="p">:</span>
+        <span class="n">pix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">interped_out</span><span class="p">),</span> <span class="n">interped_out</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">find</span> <span class="o">==</span> <span class="s1">&#39;min&#39;</span><span class="p">:</span>
+        <span class="n">pix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">interped_out</span><span class="p">),</span> <span class="n">interped_out</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        
+    
+    <span class="n">xcen</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">ycen</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">xoffset</span> <span class="o">=</span> <span class="n">xcen</span> <span class="o">-</span> <span class="n">x_initial</span>
+    <span class="n">yoffset</span> <span class="o">=</span> <span class="n">ycen</span> <span class="o">-</span> <span class="n">y_initial</span>
+    <span class="c1">#calcualte roll shifts for all x and y combinations</span>
+    <span class="n">x_grid</span><span class="p">,</span> <span class="n">y_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">xoffset</span> <span class="o">+</span> <span class="n">xrad</span><span class="p">,</span> <span class="n">xoffset</span> <span class="o">-</span> <span class="n">xrad</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">),</span> 
+                         <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">yoffset</span> <span class="o">+</span> <span class="n">yrad</span><span class="p">,</span> <span class="n">yoffset</span> <span class="o">-</span> <span class="n">yrad</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">))</span>
+
+    <span class="n">xshift</span> <span class="o">=</span> <span class="n">x_grid</span><span class="p">[</span><span class="n">pix</span><span class="p">]</span>
+    <span class="n">yshift</span> <span class="o">=</span> <span class="n">y_grid</span><span class="p">[</span><span class="n">pix</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="p">(</span><span class="n">xshift</span><span class="p">,</span> <span class="n">yshift</span><span class="p">),</span> <span class="n">out</span></div>
+
+<div class="viewcode-block" id="shift_bruteforce"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.shift_bruteforce">[docs]</a><span class="k">def</span> <span class="nf">shift_bruteforce</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">base_position</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;This will shift the maximum pixel to base_position (i.e. the center of image).</span>
+<span class="sd">    Make sure base_position is entered as (int,int).&#39;&#39;&#39;</span>
+
+    <span class="n">num_rows</span><span class="p">,</span> <span class="n">num_cols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">cent</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">num_rows</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_cols</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">base_position</span><span class="p">:</span>
+        <span class="n">base_position</span> <span class="o">=</span> <span class="n">cent</span>  <span class="c1">#if no other information available, use center</span>
+            
+    <span class="c1">#First, do a median filter on the image and find max pixel location.</span>
+    <span class="c1">#Filter to remove hot pixels and make sure max is star.</span>
+    <span class="n">filtered</span> <span class="o">=</span> <span class="n">median_filter</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span> 
+    <span class="n">maxpix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanargmax</span><span class="p">(</span><span class="n">filtered</span><span class="p">),</span> <span class="n">filtered</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    
+    <span class="c1">#Now shift that location to the center (or base_position)</span>
+    <span class="n">yshift</span> <span class="o">=</span> <span class="n">base_position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">maxpix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">xshift</span> <span class="o">=</span> <span class="n">base_position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">maxpix</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+     
+    <span class="n">shifted</span> <span class="o">=</span> <span class="n">roll_shift</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">yshift</span><span class="p">,</span> <span class="n">xshift</span><span class="p">))</span> 
+      
+    <span class="k">return</span> <span class="n">shifted</span><span class="p">,</span> <span class="p">(</span><span class="n">yshift</span><span class="p">,</span> <span class="n">xshift</span><span class="p">)</span></div>
+    
+
+<div class="viewcode-block" id="run_rot"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.run_rot">[docs]</a><span class="k">def</span> <span class="nf">run_rot</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">searchsize</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">newsize</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Runs all rotations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">image</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">image</span> <span class="o">&lt;</span> <span class="mf">0.</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="n">cut_image</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">newsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">newsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> \
+               <span class="nb">int</span><span class="p">(</span><span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">newsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">newsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)]</span>
+    <span class="n">newcent</span> <span class="o">=</span> <span class="p">(</span><span class="n">newsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">newsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+   
+    <span class="c1">#(xshift, yshift), res = r.rotSearch(im, newcent[0], newcent[1], searchsize, searchsize)</span>
+    <span class="p">(</span><span class="n">xshift</span><span class="p">,</span> <span class="n">yshift</span><span class="p">),</span> <span class="n">res</span> <span class="o">=</span> <span class="n">calc_shifts</span><span class="p">(</span><span class="n">cut_image</span><span class="p">,</span> <span class="n">newcent</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">newcent</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+                                        <span class="n">searchsize</span><span class="p">,</span> <span class="n">searchsize</span><span class="p">,</span> <span class="n">find</span><span class="o">=</span><span class="s1">&#39;min&#39;</span><span class="p">,</span> 
+                                        <span class="n">method</span><span class="o">=</span><span class="s1">&#39;rotate&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">res</span><span class="p">,</span> <span class="n">cut_image</span><span class="p">,</span> <span class="p">(</span><span class="n">xshift</span><span class="p">,</span> <span class="n">yshift</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="bytescale"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.bytescale">[docs]</a><span class="k">def</span> <span class="nf">bytescale</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Byte scales an array (image).</span>
+<span class="sd">    Byte scaling means converting the input image to uint8 dtype and scaling</span>
+<span class="sd">    the range to ``(low, high)`` (default 0-255).</span>
+<span class="sd">    If the input image already has dtype uint8, no scaling is done.</span>
+<span class="sd">    This function is only available if Python Imaging Library (PIL) is installed.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : ndarray</span>
+<span class="sd">        PIL image data array.</span>
+<span class="sd">    cmin : scalar, optional</span>
+<span class="sd">        Bias scaling of small values. Default is ``data.min()``.</span>
+<span class="sd">    cmax : scalar, optional</span>
+<span class="sd">        Bias scaling of large values. Default is ``data.max()``.</span>
+<span class="sd">    high : scalar, optional</span>
+<span class="sd">        Scale max value to `high`.  Default is 255.</span>
+<span class="sd">    low : scalar, optional</span>
+<span class="sd">        Scale min value to `low`.  Default is 0.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    img_array : uint8 ndarray</span>
+<span class="sd">        The byte-scaled array.</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from scipy.misc import bytescale</span>
+<span class="sd">    &gt;&gt;&gt; img = np.array([[ 91.06794177,   3.39058326,  84.4221549 ],</span>
+<span class="sd">    ...                 [ 73.88003259,  80.91433048,   4.88878881],</span>
+<span class="sd">    ...                 [ 51.53875334,  34.45808177,  27.5873488 ]])</span>
+<span class="sd">    &gt;&gt;&gt; bytescale(img)</span>
+<span class="sd">    array([[255,   0, 236],</span>
+<span class="sd">           [205, 225,   4],</span>
+<span class="sd">           [140,  90,  70]], dtype=uint8)</span>
+<span class="sd">    &gt;&gt;&gt; bytescale(img, high=200, low=100)</span>
+<span class="sd">    array([[200, 100, 192],</span>
+<span class="sd">           [180, 188, 102],</span>
+<span class="sd">           [155, 135, 128]], dtype=uint8)</span>
+<span class="sd">    &gt;&gt;&gt; bytescale(img, cmin=0, cmax=255)</span>
+<span class="sd">    array([[91,  3, 84],</span>
+<span class="sd">           [74, 81,  5],</span>
+<span class="sd">           [52, 34, 28]], dtype=uint8)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">high</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`high` should be less than or equal to 255.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">low</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`low` should be greater than or equal to 0.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">high</span> <span class="o">&lt;</span> <span class="n">low</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`high` should be greater than or equal to `low`.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cmin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cmin</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">cmax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cmax</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="n">cscale</span> <span class="o">=</span> <span class="n">cmax</span> <span class="o">-</span> <span class="n">cmin</span>
+    <span class="k">if</span> <span class="n">cscale</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`cmax` should be larger than `cmin`.&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">cscale</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">cscale</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">scale</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">high</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span> <span class="o">/</span> <span class="n">cscale</span>
+    <span class="n">bytedata</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">cmin</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">+</span> <span class="n">low</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">bytedata</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="toimage"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.toimage">[docs]</a><span class="k">def</span> <span class="nf">toimage</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channel_axis</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Takes a numpy array and returns a PIL image.</span>
+<span class="sd">    This function is only available if Python Imaging Library (PIL) is installed.</span>
+<span class="sd">    The mode of the PIL image depends on the array shape and the `pal` and</span>
+<span class="sd">    `mode` keywords.</span>
+<span class="sd">    For 2-D arrays, if `pal` is a valid (N,3) byte-array giving the RGB values</span>
+<span class="sd">    (from 0 to 255) then ``mode=&#39;P&#39;``, otherwise ``mode=&#39;L&#39;``, unless mode</span>
+<span class="sd">    is given as &#39;F&#39; or &#39;I&#39; in which case a float and/or integer array is made.</span>
+<span class="sd">    .. warning::</span>
+<span class="sd">        This function uses `bytescale` under the hood to rescale images to use</span>
+<span class="sd">        the full (0, 255) range if ``mode`` is one of ``None, &#39;L&#39;, &#39;P&#39;, &#39;l&#39;``.</span>
+<span class="sd">        It will also cast data for 2-D images to ``uint32`` for ``mode=None``</span>
+<span class="sd">        (which is the default).</span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    For 3-D arrays, the `channel_axis` argument tells which dimension of the</span>
+<span class="sd">    array holds the channel data.</span>
+<span class="sd">    For 3-D arrays if one of the dimensions is 3, the mode is &#39;RGB&#39;</span>
+<span class="sd">    by default or &#39;YCbCr&#39; if selected.</span>
+<span class="sd">    The numpy array must be either 2 dimensional or 3 dimensional.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">iscomplexobj</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot convert a complex-valued array.&quot;</span><span class="p">)</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">and</span>
+                                <span class="p">((</span><span class="mi">3</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="mi">4</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">valid</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;arr&#39; does not have a suitable array shape for &quot;</span>
+                         <span class="s2">&quot;any mode.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># columns show up first</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">]:</span>
+            <span class="n">bytedata</span> <span class="o">=</span> <span class="n">bytescale</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="n">high</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="n">low</span><span class="p">,</span>
+                                 <span class="n">cmin</span><span class="o">=</span><span class="n">cmin</span><span class="p">,</span> <span class="n">cmax</span><span class="o">=</span><span class="n">cmax</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">frombytes</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">bytedata</span><span class="o">.</span><span class="n">tostring</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">pal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">image</span><span class="o">.</span><span class="n">putpalette</span><span class="p">(</span><span class="n">asarray</span><span class="p">(</span><span class="n">pal</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span><span class="o">.</span><span class="n">tostring</span><span class="p">())</span>
+                <span class="c1"># Becomes a mode=&#39;P&#39; automagically.</span>
+            <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;P&#39;</span><span class="p">:</span>  <span class="c1"># default gray-scale</span>
+                <span class="n">pal</span> <span class="o">=</span> <span class="p">(</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)[:,</span> <span class="n">newaxis</span><span class="p">]</span> <span class="o">*</span>
+                       <span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)[</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:])</span>
+                <span class="n">image</span><span class="o">.</span><span class="n">putpalette</span><span class="p">(</span><span class="n">asarray</span><span class="p">(</span><span class="n">pal</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span><span class="o">.</span><span class="n">tostring</span><span class="p">())</span>
+            <span class="k">return</span> <span class="n">image</span></div>
+
+
+<div class="viewcode-block" id="imresize"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.imresize">[docs]</a><span class="k">def</span> <span class="nf">imresize</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">interp</span><span class="o">=</span><span class="s1">&#39;bilinear&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resize an image.</span>
+<span class="sd">    This function is only available if Python Imaging Library (PIL) is installed.</span>
+<span class="sd">    .. warning::</span>
+<span class="sd">        This function uses `bytescale` under the hood to rescale images to use</span>
+<span class="sd">        the full (0, 255) range if ``mode`` is one of ``None, &#39;L&#39;, &#39;P&#39;, &#39;l&#39;``.</span>
+<span class="sd">        It will also cast data for 2-D images to ``uint32`` for ``mode=None``</span>
+<span class="sd">        (which is the default).</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    arr : ndarray</span>
+<span class="sd">        The array of image to be resized.</span>
+<span class="sd">    size : int, float or tuple</span>
+<span class="sd">        * int   - Percentage of current size.</span>
+<span class="sd">        * float - Fraction of current size.</span>
+<span class="sd">        * tuple - Size of the output image (height, width).</span>
+<span class="sd">    interp : str, optional</span>
+<span class="sd">        Interpolation to use for re-sizing (&#39;nearest&#39;, &#39;lanczos&#39;, &#39;bilinear&#39;,</span>
+<span class="sd">        &#39;bicubic&#39; or &#39;cubic&#39;).</span>
+<span class="sd">    mode : str, optional</span>
+<span class="sd">        The PIL image mode (&#39;P&#39;, &#39;L&#39;, etc.) to convert `arr` before resizing.</span>
+<span class="sd">        If ``mode=None`` (the default), 2-D images will be treated like</span>
+<span class="sd">        ``mode=&#39;L&#39;``, i.e. casting to long integer.  For 3-D and 4-D arrays,</span>
+<span class="sd">        `mode` will be set to ``&#39;RGB&#39;`` and ``&#39;RGBA&#39;`` respectively.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    imresize : ndarray</span>
+<span class="sd">        The resized array of image.</span>
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    toimage : Implicitly used to convert `arr` according to `mode`.</span>
+<span class="sd">    scipy.ndimage.zoom : More generic implementation that does not use PIL.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">im</span> <span class="o">=</span> <span class="n">toimage</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">size</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">):</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="o">*</span> <span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">func</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;nearest&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;lanczos&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;bilinear&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;bicubic&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;cubic&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+    <span class="n">imnew</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">resample</span><span class="o">=</span><span class="n">func</span><span class="p">[</span><span class="n">interp</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">fromimage</span><span class="p">(</span><span class="n">imnew</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="fromimage"><a class="viewcode-back" href="../../source/simmer.html#simmer.registration.fromimage">[docs]</a><span class="k">def</span> <span class="nf">fromimage</span><span class="p">(</span><span class="n">im</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a copy of a PIL image as a numpy array.</span>
+<span class="sd">    This function is only available if Python Imaging Library (PIL) is installed.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    im : PIL image</span>
+<span class="sd">        Input image.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fromimage : ndarray</span>
+<span class="sd">        The different colour bands/channels are stored in the</span>
+<span class="sd">        third dimension, such that a grey-image is MxN, an</span>
+<span class="sd">        RGB-image MxNx3 and an RGBA-image MxNx4.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span></div>
+    
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Arjun B. Savel, Lea Hirsch, Courtney D. Dressing, David Ciardi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
