@@ -1,0 +1,428 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>simmer.image &mdash; SImMER 1.0.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'1.0.0',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SImMER
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/about.html">About SImMER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/Using.html">Using the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/FAQ.html">FAQ</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/simmer.html">SImMER documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SImMER</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>simmer.image</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for simmer.image</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module to make the image stacking / production occur.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="k">import</span> <span class="n">glob</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="k">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">co</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">astropy.io.fits</span> <span class="k">as</span> <span class="nn">pyfits</span>
+
+<span class="kn">import</span> <span class="nn">utils</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">import</span> <span class="nn">registration</span> <span class="k">as</span> <span class="nn">reg</span>
+
+
+<div class="viewcode-block" id="image_driver"><a class="viewcode-back" href="../../source/simmer.html#simmer.image.image_driver">[docs]</a><span class="k">def</span> <span class="nf">image_driver</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">inst</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Do flat division, sky subtraction, and initial alignment via coords in header.</span>
+<span class="sd">    Returns Python list of each registration method used per star.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1">#Save these images to the appropriate folder.</span>
+    
+    <span class="k">if</span> <span class="n">inst</span><span class="o">.</span><span class="n">take_skies</span><span class="p">:</span>
+        <span class="n">skies</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">Comments</span> <span class="o">==</span> <span class="s1">&#39;sky&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">skies</span> <span class="o">=</span> <span class="n">config</span><span class="p">[(</span><span class="n">config</span><span class="o">.</span><span class="n">Object</span> <span class="o">!=</span> <span class="s1">&#39;flat&#39;</span><span class="p">)</span> \
+                       <span class="o">&amp;</span> <span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">Object</span> <span class="o">!=</span> <span class="s1">&#39;dark&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">Object</span> <span class="o">!=</span> <span class="s1">&#39;setup&#39;</span><span class="p">)]</span>
+    <span class="n">stars</span> <span class="o">=</span> <span class="n">skies</span><span class="o">.</span><span class="n">Object</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="n">sdirs</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">reddir</span> <span class="o">+</span> <span class="s1">&#39;*/&#39;</span><span class="p">)</span>
+    
+    <span class="n">methods</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">star</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">stars</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Running image driver&#39;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">leave</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">s_dir</span> <span class="o">=</span> <span class="n">reddir</span> <span class="o">+</span> <span class="n">star</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+        <span class="k">if</span> <span class="n">s_dir</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sdirs</span><span class="p">:</span>  <span class="c1"># make sure there&#39;s a subdirectory for each star</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">s_dir</span><span class="p">)</span>
+        
+        <span class="n">filts</span> <span class="o">=</span> <span class="n">skies</span><span class="p">[</span><span class="n">skies</span><span class="o">.</span><span class="n">Object</span> <span class="o">==</span> <span class="n">star</span><span class="p">]</span><span class="o">.</span><span class="n">Filter</span><span class="o">.</span><span class="n">values</span> <span class="c1"># array of filters as strings</span>
+        <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">filter_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">filts</span><span class="p">):</span>       
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">Object</span> <span class="o">==</span> <span class="n">star</span><span class="p">]</span> 
+<span class="c1">#             imlist = literal_eval(obj[obj.Comments != &#39;sky&#39;].Filenums.values[n])</span>
+            <span class="n">imlist</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">Comments</span> <span class="o">!=</span> <span class="s1">&#39;sky&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">Filenums</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="c1"># pylint: disable=eval-used # liter_eval issues</span>
+            <span class="c1"># cast obj_methods as list so that elementwise comparison isn&#39;t performed</span>
+            <span class="n">obj_methods</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">Object</span> <span class="o">==</span> <span class="n">star</span><span class="p">]</span><span class="o">.</span><span class="n">Method</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;saturated&#39;</span> <span class="ow">and</span> <span class="s1">&#39;wide&#39;</span> <span class="ow">in</span> <span class="n">obj_methods</span><span class="p">:</span>
+                <span class="n">methods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;saturated wide&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s1">&#39;saturated&#39;</span> <span class="ow">in</span> <span class="n">obj_methods</span> <span class="ow">and</span> <span class="s1">&#39;wide&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">obj_methods</span><span class="p">:</span>
+                <span class="n">methods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;saturated&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s1">&#39;saturated&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">obj_methods</span> <span class="ow">and</span> <span class="s1">&#39;wide&#39;</span> <span class="ow">in</span> <span class="n">obj_methods</span><span class="p">:</span>
+                <span class="n">methods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;wide&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">methods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+            <span class="n">create_imstack</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span><span class="p">,</span> <span class="n">s_dir</span><span class="p">,</span> 
+                           <span class="n">imlist</span><span class="p">,</span> <span class="n">inst</span><span class="p">,</span> 
+                           <span class="n">plot</span><span class="o">=</span><span class="n">plot</span><span class="p">,</span> <span class="n">filter_name</span><span class="o">=</span><span class="n">filter_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">methods</span></div>
+            
+        
+<div class="viewcode-block" id="create_imstack"><a class="viewcode-back" href="../../source/simmer.html#simmer.image.create_imstack">[docs]</a><span class="k">def</span> <span class="nf">create_imstack</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span><span class="p">,</span> <span class="n">s_dir</span><span class="p">,</span> <span class="n">imlist</span><span class="p">,</span> <span class="n">inst</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filter_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Create the stack of images by performing flat division, sky subtraction.&#39;&#39;&#39;</span>
+<span class="c1">#     method = &#39;brute force&#39; # the default</span>
+    <span class="n">nims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">imlist</span><span class="p">)</span>
+    <span class="n">imfiles</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">make_filelist</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">imlist</span><span class="p">,</span> <span class="n">inst</span><span class="p">)</span>
+
+    <span class="n">im_array</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">read_imcube</span><span class="p">(</span><span class="n">imfiles</span><span class="p">)</span>
+
+    <span class="n">im_array</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">adjust_array</span><span class="p">(</span><span class="n">im_array</span><span class="p">,</span> <span class="n">nims</span><span class="p">)</span>
+
+    <span class="n">head</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">imfiles</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">filt</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">filt</span><span class="p">(</span><span class="n">nims</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">filter_name</span><span class="p">)</span>
+
+    <span class="c1"># if necessary, make directory for filter. Also grab correct flat file</span>
+    <span class="n">fdirs</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">s_dir</span> <span class="o">+</span> <span class="s1">&#39;*/&#39;</span><span class="p">)</span>
+
+    <span class="n">sf_dir</span> <span class="o">=</span> <span class="n">s_dir</span> <span class="o">+</span> <span class="n">filt</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
+    <span class="k">if</span> <span class="n">sf_dir</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fdirs</span><span class="p">:</span>  <span class="c1"># make a directory for each filt</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">sf_dir</span><span class="p">)</span>
+       
+    <span class="n">flatfile</span> <span class="o">=</span> <span class="n">reddir</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;flat_</span><span class="si">{filt}</span><span class="s1">.fits&#39;</span>
+    <span class="k">if</span> <span class="n">inst</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;PHARO&#39;</span> <span class="ow">and</span> <span class="n">filt</span> <span class="o">==</span> <span class="s1">&#39;Br-gamma&#39;</span><span class="p">:</span> <span class="c1">#not sure whether this is generalizable</span>
+        <span class="n">flatfile</span> <span class="o">=</span> <span class="n">reddir</span> <span class="o">+</span> <span class="s1">&#39;flat_K_short.fits&#39;</span>
+    <span class="n">flat</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="n">flatfile</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">skyfile</span> <span class="o">=</span> <span class="n">sf_dir</span> <span class="o">+</span> <span class="s1">&#39;sky.fits&#39;</span>
+    <span class="n">sky</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="n">skyfile</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">sky</span><span class="p">[</span><span class="n">sky</span> <span class="o">!=</span> <span class="n">sky</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span> <span class="c1">#set nans from flat=0 pixels to 0 in sky</span>
+
+    <span class="n">shifts_all</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nims</span><span class="p">):</span>
+        <span class="c1">#flat division and sky subtraction</span>
+        <span class="n">current_im</span> <span class="o">=</span> <span class="n">im_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+        <span class="n">current_im</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_im</span> <span class="o">/</span> <span class="n">flat</span><span class="p">)</span> <span class="o">-</span> <span class="n">sky</span>  <span class="c1">#where flat = 0, this will be nan</span>
+        <span class="n">current_head</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">getheader</span><span class="p">(</span><span class="n">imfiles</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        
+        <span class="c1">#bad pixel correction</span>
+        <span class="n">current_im</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">bad_pix</span><span class="p">(</span><span class="n">current_im</span><span class="p">)</span>
+        
+        <span class="c1">#now deal with headers and shifts</span>
+        <span class="n">shifted_im</span><span class="p">,</span> <span class="n">shifts</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">shift_bruteforce</span><span class="p">(</span><span class="n">current_im</span><span class="p">)</span> <span class="c1">#put it at the center</span>
+
+        <span class="n">shifts_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shifts</span><span class="p">)</span>
+        
+<span class="c1">#         if tests: # want to perform tests after dark subtraction and flat-fielding</span>
+<span class="c1">#             wides.append(reg.test_wide_binary)</span>
+<span class="c1">#             saturateds.append(reg.test_saturated)</span>
+                
+        <span class="n">im_array</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">shifted_im</span>
+        <span class="n">hdu</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">(</span><span class="n">shifted_im</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">current_head</span><span class="p">)</span>
+        <span class="n">hdu</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="n">sf_dir</span><span class="o">+</span><span class="s1">&#39;sh</span><span class="si">{:02d}</span><span class="s1">.fits&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_verify</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">nims</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span> 
+        <span class="n">plot</span> <span class="o">=</span> <span class="kc">False</span>
+        
+    <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+        <span class="n">u</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">im_array</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">10000.</span><span class="p">,</span> <span class="n">sf_dir</span><span class="p">,</span> <span class="s1">&#39;shift1_cube.png&#39;</span><span class="p">)</span>
+    
+    <span class="c1">#write shifts to file</span>
+    <span class="n">textfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">sf_dir</span> <span class="o">+</span> <span class="s1">&#39;shifts.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+    <span class="n">textfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;im, d_row, d_col</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">shift</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shifts_all</span><span class="p">):</span>
+        <span class="n">textfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="o">*</span><span class="n">shift</span><span class="p">))</span>        
+    <span class="n">textfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">im_array</span><span class="p">,</span> <span class="n">shifts_all</span></div>
+       
+    
+<div class="viewcode-block" id="create_im"><a class="viewcode-back" href="../../source/simmer.html#simmer.image.create_im">[docs]</a><span class="k">def</span> <span class="nf">create_im</span><span class="p">(</span><span class="n">s_dir</span><span class="p">,</span> <span class="n">ssize1</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fdirs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Take the shifted, cut down images from before, then perform registration </span>
+<span class="sd">    and combine. Tests should happen before this, as this is a per-star basis.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">fdirs</span><span class="p">:</span>
+        <span class="n">fdirs</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">s_dir</span> <span class="o">+</span> <span class="s1">&#39;*/&#39;</span><span class="p">)</span>
+        
+    <span class="k">for</span> <span class="n">sf_dir</span> <span class="ow">in</span> <span class="n">fdirs</span><span class="p">:</span> <span class="c1"># each filter</span>
+        
+        <span class="c1"># files = glob(sf_dir + &#39;sh*.fits&#39;) #reduced image files</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">sf_dir</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;s*.fits&#39;</span><span class="p">)</span> <span class="c1">#might need to change to file_prefix</span>
+        <span class="n">nims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+        <span class="n">frames</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">read_imcube</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+        <span class="n">frames</span> <span class="o">=</span> <span class="n">frames</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        
+        <span class="n">arrsize1</span> <span class="o">=</span> <span class="n">ssize1</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">rots</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nims</span><span class="p">,</span> <span class="n">arrsize1</span><span class="p">,</span> <span class="n">arrsize1</span><span class="p">))</span>
+        <span class="n">newshifts1</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1">#newshifts2 = []</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nims</span><span class="p">):</span>  <span class="c1">#each image</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">frames</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+            <span class="c1"># image_centered, rot, newshifts1 = reg.register_saturated(image, ssize1, newshifts1)</span>
+            <span class="c1"># rots[i, :, :] = rot</span>
+            
+            <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;saturated&#39;</span><span class="p">:</span>
+                <span class="n">image_centered</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="n">newshifts1</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">register_saturated</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ssize1</span><span class="p">,</span> <span class="n">newshifts1</span><span class="p">)</span>
+                <span class="n">rots</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">rot</span>
+            <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">image</span><span class="p">)):</span>
+                    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span> <span class="c1"># change to j</span>
+                        <span class="k">if</span> <span class="n">image</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.</span><span class="p">:</span>
+                            <span class="n">image</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+                <span class="n">image_centered</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">register_bruteforce</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">image_centered</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Resorting to saturated mode.&#39;</span><span class="p">)</span>
+                    <span class="n">image_centered</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="n">newshifts1</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">register_saturated</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> 
+                                                                             <span class="n">ssize1</span><span class="p">,</span>
+                                                                             <span class="n">newshifts1</span><span class="p">)</span>
+                    <span class="n">rots</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">rot</span>
+            <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;saturated wide&#39;</span><span class="p">:</span>
+                <span class="n">rough_center</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">find_wide_binary</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+                <span class="n">image_centered</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">register_bruteforce</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">rough_center</span><span class="o">=</span><span class="n">rough_center</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;wide&#39;</span><span class="p">:</span>
+                <span class="n">rough_center</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">find_wide_binary</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+                <span class="n">image_centered</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">register_bruteforce</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">rough_center</span><span class="o">=</span><span class="n">rough_center</span><span class="p">)</span>
+            <span class="n">frames</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">image_centered</span> <span class="c1">#newimage</span>
+
+
+        <span class="n">final_im</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">head</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">getheader</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>        
+        <span class="n">hdu</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">PrimaryHDU</span><span class="p">(</span><span class="n">final_im</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">head</span><span class="p">)</span>
+        <span class="n">hdu</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="n">sf_dir</span> <span class="o">+</span> <span class="s1">&#39;final_im.fits&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_verify</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+        
+        <span class="n">textfile1</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">sf_dir</span> <span class="o">+</span> <span class="s1">&#39;shifts2.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">textfile1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;im, d_row, d_col</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">newshifts1</span><span class="p">):</span>
+            <span class="n">textfile1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="o">*</span><span class="n">item</span><span class="p">))</span>        
+        <span class="n">textfile1</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">nims</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
+            <span class="n">plot</span> <span class="o">=</span> <span class="kc">False</span>
+        
+        <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>    
+            <span class="n">u</span><span class="o">.</span><span class="n">plot_array</span><span class="p">(</span><span class="n">rots</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">sf_dir</span><span class="p">,</span> <span class="s1">&#39;rots.png&#39;</span><span class="p">,</span> 
+                         <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">ssize1</span><span class="p">,</span> <span class="n">ssize1</span><span class="p">,</span> <span class="o">-</span><span class="n">ssize1</span><span class="p">,</span> <span class="n">ssize1</span><span class="p">])</span>
+            
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># pylint: disable=invalid-name # common axis name!</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">final_im</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;plasma&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> 
+                      <span class="n">norm</span><span class="o">=</span><span class="n">co</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">10000.</span><span class="p">))</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">sf_dir</span> <span class="o">+</span> <span class="s1">&#39;final_image.png&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+
+                        
+            <span class="n">nrows</span> <span class="o">=</span> <span class="mi">4</span>
+            <span class="n">ncols</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">nims</span> <span class="o">/</span> <span class="mf">4.</span><span class="p">)))</span>
+            <span class="n">rowheight</span> <span class="o">=</span> <span class="n">nrows</span> <span class="o">*</span> <span class="mi">10</span>
+            <span class="n">colheight</span> <span class="o">=</span> <span class="n">ncols</span> <span class="o">*</span> <span class="mi">10</span>
+
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">colheight</span><span class="p">,</span> <span class="n">rowheight</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nims</span><span class="p">):</span>
+                <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># pylint: disable=invalid-name # common axis name!</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="n">frames</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">250</span><span class="p">:</span><span class="mi">350</span><span class="p">,</span> <span class="mi">250</span><span class="p">:</span><span class="mi">350</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;plasma&#39;</span><span class="p">,</span> 
+                          <span class="n">norm</span><span class="o">=</span><span class="n">co</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">10000.</span><span class="p">))</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">50</span><span class="p">],</span> <span class="p">[</span><span class="mi">50</span><span class="p">],</span> <span class="s1">&#39;wo&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">sf_dir</span> <span class="o">+</span> <span class="s1">&#39;centers.png&#39;</span><span class="p">)</span></div>
+                    
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Arjun B. Savel, Lea Hirsch, Courtney D. Dressing, David Ciardi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
