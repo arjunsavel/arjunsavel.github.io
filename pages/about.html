@@ -13,12 +13,13 @@
 
   
   
-  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
   
   
 
   
-  <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
       <script type="text/javascript">
@@ -32,18 +33,18 @@
               SOURCELINK_SUFFIX: '.txt'
           };
       </script>
-        <script type="text/javascript" src="../static/jquery.js"></script>
-        <script type="text/javascript" src="../static/underscore.js"></script>
-        <script type="text/javascript" src="../static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
-    <script type="text/javascript" src="../static/js/theme.js"></script>
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
 
   
-  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Installation" href="installation.html" />
@@ -99,12 +100,13 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">About SImMER</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Using.html">Using the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Using.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQ</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../source/simmer.html">SImMER documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/simmer.html">API</a></li>
 </ul>
 
             
@@ -171,11 +173,11 @@
             
   <div class="section" id="about-simmer">
 <h1>About SImMER<a class="headerlink" href="#about-simmer" title="Permalink to this headline">¶</a></h1>
-<a class="reference external image-reference" href="https://travis-ci.com/arjunsavel/shane-reduction)"><img alt="https://travis-ci.com/arjunsavel/shane-reduction.svg?token=4BzSgPkkto83Ppb3j9Si&amp;branch=master" src="https://travis-ci.com/arjunsavel/shane-reduction.svg?token=4BzSgPkkto83Ppb3j9Si&amp;branch=master" /></a>
-<a class="reference external image-reference" href="https://codecov.io/gh/arjunsavel/shane-reduction)"><img alt="https://codecov.io/gh/arjunsavel/shane-reduction/branch/master/graph/badge.svg?token=5ERhXGwSDo" src="https://codecov.io/gh/arjunsavel/shane-reduction/branch/master/graph/badge.svg?token=5ERhXGwSDo" /></a>
+<a class="reference external image-reference" href="https://travis-ci.com/arjunsavel/shane-reduction"><img alt="https://travis-ci.com/arjunsavel/shane-reduction.svg?token=4BzSgPkkto83Ppb3j9Si&amp;branch=master" src="https://travis-ci.com/arjunsavel/shane-reduction.svg?token=4BzSgPkkto83Ppb3j9Si&amp;branch=master" /></a>
+<a class="reference external image-reference" href="https://codecov.io/gh/arjunsavel/shane-reduction"><img alt="https://codecov.io/gh/arjunsavel/shane-reduction/branch/master/graph/badge.svg?token=5ERhXGwSDo" src="https://codecov.io/gh/arjunsavel/shane-reduction/branch/master/graph/badge.svg?token=5ERhXGwSDo" /></a>
 <a class="reference external image-reference" href="code_of_conduct.md"><img alt="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" /></a>
 <a class="reference external image-reference" href="https://opensource.org/licenses/MIT"><img alt="https://img.shields.io/badge/License-MIT-yellow.svg" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
-<a class="reference external image-reference" href="http://emcee.readthedocs.io/en/latest/?badge=latest)"><img alt="https://readthedocs.org/projects/emcee/badge/?version=latest" src="https://readthedocs.org/projects/emcee/badge/?version=latest" /></a>
+<a class="reference external image-reference" href="http://emcee.readthedocs.io/en/latest/?badge=latest"><img alt="https://readthedocs.org/projects/emcee/badge/?version=latest" src="https://readthedocs.org/projects/emcee/badge/?version=latest" /></a>
 <p>SImMER (Stellar Image Maturation via Efficient Reduction) was created to be an open-source, modular, and well-tested reduction pipeline for astronomical imaging data. It can currently reduce data from the ShARCS camera on the Shane 3-m telescope at Lick Observatory and the PHARO camera on the Hale 5.1-m telescope at Palomar Observatory. Its object-oriented design allows it to be extended to other instruments, and we hope that other capabilities are folded in by other members of the community.</p>
 <p>This code is meant both to be a tool used by professionals and as a teaching tool for anyone new to image reduction. If you find something that doesn’t work or doesn’t make sense, please file an issue on GitHub. If you’re interested in helping out with the project, we’d love to have you on board! Get in contact (<a class="reference external" href="mailto:asavel&#37;&#52;&#48;berkeley&#46;edu">asavel<span>&#64;</span>berkeley<span>&#46;</span>edu</a>) or just fork the repository and start working — we&#8217;ll review your pull request when you’re ready!</p>
 </div>

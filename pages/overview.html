@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; SImMER 1.0.0 documentation</title>
+  <title>Overview &mdash; SImMER 1.0.0 documentation</title>
   
 
   
@@ -47,8 +47,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Overview" href="overview.html" />
-    <link rel="prev" title="About SImMER" href="about.html" /> 
+    <link rel="next" title="Quickstart" href="Using.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -99,12 +99,13 @@
               <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About SImMER</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installing-from-source">Installing from source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#test-the-installation">Test the installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tutorials">Tutorials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-config-file">The config file</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Using.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQ</a></li>
 </ul>
@@ -156,13 +157,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Installation</li>
+      <li>Overview</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/pages/installation.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/pages/overview.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -175,30 +176,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>SImMER is meant to be a well-tested code across multiple operating systems. However, Windows testing is yet to be implemented, so installation may be especially buggy for Windows users.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">SImMER is currently a private, beta code. If you would like access, please contact Arjun Savel at <a class="reference external" href="mailto:asavel&#37;&#52;&#48;berkeley&#46;edu">asavel<span>&#64;</span>berkeley<span>&#46;</span>edu</a>.</p>
+  <div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tutorials">
+<h2>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h2>
+<p>There are two Jupyter notebook tutorials included with the installation (src/simmer/Examples), one for each instrument currently supported by the code. Each covers the portions of the code necessary to perform a reduction.</p>
 </div>
-<div class="section" id="installing-from-source">
-<h2>Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this headline">¶</a></h2>
-<p>SImMER is developed on <a class="reference external" href="https://github.com/arjunsavel/shane-reduction">GitHub</a>. If you received the code as a tarball or zip, skip to below the git clone line.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>python3 -m pip install -U pip
-python3 -m pip install -U setuptools setuptools_scm pep517
-git clone https://github.com/arjunsavel/shane-reduction.git
-<span class="nb">cd</span> shane-reduction
-python -m pip install -e .
-</pre></div>
+<div class="section" id="id1">
+<h2>Overview<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Our code performs standard dark-subtraction and flat-fielding operations on the data. In the image-stacking (&#8220;registration&#8221;) mode, however, there are a few options regarding how to proceed. The default (quickest) mechanism is essentially a peak-finding algorithm, which makes some local maximum the center of each science frame. For other stars (saturated ones, for example), this scheme is insufficient. As such, we perform a more complex registration scheme in which we subtract rotated frames from their originals, minimizing residuals with respect to the center of said rotations. Finally, for stars that are widely separated and are of somewhat equal brightness, we have a &#8220;wide binary&#8221; mode, in which the user selects which star is the primary around which each image should be centered.</p>
+<a class="reference internal image-reference" href="../_images/flowchart.png"><img alt="Flowchart details the path that the pipeline takes" src="../_images/flowchart.png" style="width: 700px;" /></a>
 </div>
-</div>
-<div class="section" id="test-the-installation">
-<h2>Test the installation<a class="headerlink" href="#test-the-installation" title="Permalink to this headline">¶</a></h2>
-<p>To ensure that the installation has been performed smoothly, feel free to run the unit and integration tests included with the package. The entire test suite should take on the order of 10 minutes to run. Before running the test suite, ensure that, in the <code class="code docutils literal"><span class="pre">aodirs.py</span></code> file, the <code class="code docutils literal"><span class="pre">raw_dir</span></code> and <code class="code docutils literal"><span class="pre">reddir</span></code> functions return the directory containing <code class="code docutils literal"><span class="pre">/src/simmer/tests/PHARO_integration/</span></code>. Make sure that the <code class="code docutils literal"><span class="pre">config</span></code> function returns the path to the config file in the <code class="code docutils literal"><span class="pre">shane-reduction</span></code> directory. From the shane-reduction directory, then run</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>python3 -m unittest discover src
-</pre></div>
-</div>
+<div class="section" id="the-config-file">
+<h2>The config file<a class="headerlink" href="#the-config-file" title="Permalink to this headline">¶</a></h2>
+<p>The desired registration methods for each object (in addition to exposure time, filter, comments, and associated raw data file numbers) are stored and accessed in a <strong>config file</strong>, an example of which is provided in the installation. If image registration is not specified in the config file, the code progresses with the default method. If, however, the default method does not converge, the code resorts to the saturated star method.</p>
+<a class="reference internal image-reference" href="../_images/config.jpg"><img alt="Alternative text" src="../_images/config.jpg" style="width: 700px;" /></a>
 </div>
 </div>
 
@@ -210,10 +202,10 @@ python -m pip install -e .
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Using.html" class="btn btn-neutral float-right" title="Quickstart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="about.html" class="btn btn-neutral float-left" title="About SImMER" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

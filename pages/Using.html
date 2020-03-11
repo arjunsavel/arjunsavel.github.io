@@ -8,19 +8,18 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Using the code &mdash; SImMER 1.0.0 documentation</title>
+  <title>Quickstart &mdash; SImMER 1.0.0 documentation</title>
   
 
   
   
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
   
   
 
   
-  <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
       <script type="text/javascript">
@@ -34,22 +33,22 @@
               SOURCELINK_SUFFIX: '.txt'
           };
       </script>
-        <script type="text/javascript" src="../static/jquery.js"></script>
-        <script type="text/javascript" src="../static/underscore.js"></script>
-        <script type="text/javascript" src="../static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
-    <script type="text/javascript" src="../static/js/theme.js"></script>
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
 
   
-  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="FAQ" href="FAQ.html" />
-    <link rel="prev" title="Installation" href="installation.html" /> 
+    <link rel="prev" title="Overview" href="overview.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -101,17 +100,16 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">About SImMER</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Using the code</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#tutorials">Tutorials</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-config-file">The config file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pharo-reduction">PHARO reduction</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQ</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../source/simmer.html">SImMER documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/simmer.html">API</a></li>
 </ul>
 
             
@@ -157,7 +155,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Using the code</li>
+      <li>Quickstart</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -176,19 +174,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="using-the-code">
-<h1>Using the code<a class="headerlink" href="#using-the-code" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="tutorials">
-<h2>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h2>
-<p>There are two Jupyter notebook tutorials included with the installation (src/simmer/Examples), one for each instrument currently supported by the code. Each covers the portions of the code necessary to perform a reduction.</p>
+  <div class="section" id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pharo-reduction">
+<h2>PHARO reduction<a class="headerlink" href="#pharo-reduction" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ll walk through an example of using this code on the PHARO data contained within the test suite.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="code docutils literal"><span class="pre">aodirs.py</span></code> file and associated references will be deprecated immediately after the open-source release of this code.</p>
 </div>
-<div class="section" id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>Our code performs standard dark-subtraction and flat-fielding operations on the data. In the image-stacking (&#8220;registration&#8221;) mode, however, there are a few options regarding how to proceed. The default (quickest) mechanism is essentially a peak-finding algorithm, which makes some local maximum the center of each science frame. For other stars (saturated ones, for example), this scheme is insufficient. As such, we perform a more complex registration scheme in which we subtract rotated frames from their originals, minimizing residuals with respect to the center of said rotations. Finally, for stars that are widely separated and are of somewhat equal brightness, we have a &#8220;wide binary&#8221; mode, in which the user selects which star is the primary around which each image should be centered.</p>
+<p>First, make sure that you edit the <code class="code docutils literal"><span class="pre">aodirs.py</span></code> file. We&#8217;d like to set the <code class="code docutils literal"><span class="pre">raw_dir</span></code> function to the directory containing <code class="code docutils literal"><span class="pre">src/simmer/tests/PHARO_integration</span></code>. Set the  <code class="code docutils literal"><span class="pre">reddir</span></code> function to return whatever directory you&#8217;d like your reduced data to be dumped in. Make sure that the <code class="code docutils literal"><span class="pre">config</span></code> function returns the path to the config file in the <code class="code docutils literal"><span class="pre">shane-reduction</span></code> directory.</p>
+<p>Next, run the below line instantiating the code:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>import insts as i
+import drivers
+
+<span class="nv">inst</span> <span class="o">=</span> i.PHARO<span class="o">()</span>
+</pre></div>
 </div>
-<div class="section" id="the-config-file">
-<h2>The config file<a class="headerlink" href="#the-config-file" title="Permalink to this headline">¶</a></h2>
-<p>The desired registration methods for each object (in addition to exposure time, filter, comments, and associated raw data file numbers) are stored and accessed in a <strong>*config file*</strong>, an example of which is provided in the installation. If image registration is not specified in the config file, the code progresses with the default method. If, however, the default method does not converge, the code resorts to the saturated star method.</p>
+<p>This instantiates <code class="code docutils literal"><span class="pre">inst</span></code> as an <code class="code docutils literal"><span class="pre">instrument</span></code> object prepared to reduced PHARO data.</p>
+<p>Next, run</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>drivers.all_driver<span class="o">(</span>inst<span class="o">)</span>
+</pre></div>
+</div>
+<p>Progress bars should give estimates as to how long each step will take along the way.</p>
+<p>Now, check your <code class="code docutils literal"><span class="pre">reddir</span></code> folder — you should find your reduced data!</p>
+<p>A reduction with ShARCS data would work similarly — with appropriate adjustments to <code class="code docutils literal"><span class="pre">raw_dir</span></code>, <code class="code docutils literal"><span class="pre">reddir</span></code>, <code class="code docutils literal"><span class="pre">config</span></code>, and <code class="code docutils literal"><span class="pre">inst</span></code> (to i.ShARCS).</p>
 </div>
 </div>
 
@@ -203,7 +213,7 @@
         <a href="FAQ.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
