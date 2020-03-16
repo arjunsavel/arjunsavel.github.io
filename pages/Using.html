@@ -8,12 +8,12 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart &mdash; SImMER 0.1.0 documentation</title>
+  <title>Quickstart &mdash; SImMER 0.2.0 documentation</title>
   
 
   
   
-  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">  
+    <link rel="shortcut icon" href="../static/favicon.png"/>
   
   
   
@@ -25,7 +25,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'0.1.0',
+              VERSION:'0.2.0',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -72,7 +72,7 @@
             
             
               <div class="version">
-                0.1.0
+                0.2.0
               </div>
             
           
@@ -103,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#pharo-reduction">PHARO reduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sharcs-reduction">ShARCS reduction</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQ</a></li>
@@ -161,7 +162,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/pages/Using.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../sources/pages/Using.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -179,12 +180,7 @@
 <div class="section" id="pharo-reduction">
 <h2>PHARO reduction<a class="headerlink" href="#pharo-reduction" title="Permalink to this headline">¶</a></h2>
 <p>We&#8217;ll walk through an example of using this code on the PHARO data contained within the test suite.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The <code class="code docutils literal"><span class="pre">aodirs.py</span></code> file and associated references will be deprecated immediately after the open-source release of this code.</p>
-</div>
-<p>First, make sure that you edit the <code class="code docutils literal"><span class="pre">aodirs.py</span></code> file. We&#8217;d like to set the <code class="code docutils literal"><span class="pre">raw_dir</span></code> function to the directory containing <code class="code docutils literal"><span class="pre">src/simmer/tests/PHARO_integration</span></code>. Set the  <code class="code docutils literal"><span class="pre">reddir</span></code> function to return whatever directory you&#8217;d like your reduced data to be dumped in. Make sure that the <code class="code docutils literal"><span class="pre">config</span></code> function returns the path to the config file in the <code class="code docutils literal"><span class="pre">shane-reduction</span></code> directory.</p>
-<p>Next, run the below line instantiating the code:</p>
+<p>First, run the below line to instantiate the code:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>import insts as i
 import drivers
 
@@ -192,13 +188,45 @@ import drivers
 </pre></div>
 </div>
 <p>This instantiates <code class="code docutils literal"><span class="pre">inst</span></code> as an <code class="code docutils literal"><span class="pre">instrument</span></code> object prepared to reduced PHARO data.</p>
-<p>Next, run</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>drivers.all_driver<span class="o">(</span>inst<span class="o">)</span>
+<p>Next, you&#8217;ll want to set up your config file path, raw data directory, and reduced data directory. <code class="code docutils literal"><span class="pre">path_to_package</span></code> should be a path ending in <code class="code docutils literal"><span class="pre">shane-reduction/</span></code>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">path_to_package</span> <span class="o">=</span> ... <span class="c1"># edit this line!</span>
+
+<span class="nv">config_file</span> <span class="o">=</span> path_to_package +  <span class="s1">&#39;config.csv&#39;</span>
+<span class="nv">raw_dir</span> <span class="o">=</span> path_to_package + src/simmer/tests/PHARO_integration
+
+<span class="nv">reddir</span> <span class="o">=</span> ... <span class="c1"># edit this line!</span>
+</pre></div>
+</div>
+<p>Finally, run</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>drivers.all_driver<span class="o">(</span>inst, config_file, raw_dir, reddir<span class="o">)</span>
 </pre></div>
 </div>
 <p>Progress bars should give estimates as to how long each step will take along the way.</p>
-<p>Now, check your <code class="code docutils literal"><span class="pre">reddir</span></code> folder — you should find your reduced data!</p>
-<p>A reduction with ShARCS data would work similarly — with appropriate adjustments to <code class="code docutils literal"><span class="pre">raw_dir</span></code>, <code class="code docutils literal"><span class="pre">reddir</span></code>, <code class="code docutils literal"><span class="pre">config</span></code>, and <code class="code docutils literal"><span class="pre">inst</span></code> (to i.ShARCS).</p>
+<p>Now, check your <code class="code docutils literal"><span class="pre">reddir</span></code> folder — you should find your reduced data! Each <code class="code docutils literal"><span class="pre">sh**.fits</span></code> file is a shifted (centered) frame. The image that you&#8217;ll likely want to use for your science is <code class="code docutils literal"><span class="pre">final_im.fits</span></code>.</p>
+</div>
+<div class="section" id="sharcs-reduction">
+<h2>ShARCS reduction<a class="headerlink" href="#sharcs-reduction" title="Permalink to this headline">¶</a></h2>
+<p>Similarly to the PHARO method, we begin by instantiating the code — but this time, with a different instrument</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>import insts as i
+import drivers
+
+<span class="nv">inst</span> <span class="o">=</span> i.ShARCS<span class="o">()</span>
+</pre></div>
+</div>
+<p>This instantiates <code class="code docutils literal"><span class="pre">inst</span></code> as an <code class="code docutils literal"><span class="pre">instrument</span></code> object prepared to reduced ShARCS data.</p>
+<p>Next, you&#8217;ll want to set up your config file path, raw data directory, and reduced data directory. <code class="code docutils literal"><span class="pre">path_to_package</span></code> should be a path ending in <code class="code docutils literal"><span class="pre">shane-reduction/</span></code>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">path_to_package</span> <span class="o">=</span> ... <span class="c1"># edit this line!</span>
+
+<span class="nv">config_file</span> <span class="o">=</span> path_to_package +  <span class="s1">&#39;config.csv&#39;</span>
+<span class="nv">raw_dir</span> <span class="o">=</span> path_to_package + src/simmer/tests/ShARCS_integration
+
+<span class="nv">reddir</span> <span class="o">=</span> ... <span class="c1"># edit this line!</span>
+</pre></div>
+</div>
+<p>Finally, run</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>drivers.all_driver<span class="o">(</span>inst, config_file, raw_dir, reddir<span class="o">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 
