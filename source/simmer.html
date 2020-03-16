@@ -8,14 +8,13 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SImMER documentation &mdash; SImMER 1.0.0 documentation</title>
+  <title>API &mdash; SImMER 0.2.0 documentation</title>
   
 
   
   
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">  
+    <link rel="shortcut icon" href="../static/favicon.png"/>
+  
   
   
 
@@ -26,7 +25,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'1.0.0',
+              VERSION:'0.2.0',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',
@@ -72,7 +71,7 @@
             
             
               <div class="version">
-                1.0.0
+                0.2.0
               </div>
             
           
@@ -100,14 +99,15 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../pages/about.html">About SImMER</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pages/installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../pages/Using.html">Using the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/Using.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../pages/FAQ.html">FAQ</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">SImMER documentation</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-simmer.add_dark_exp">simmer.add_dark_exp module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-simmer.aodirs">simmer.aodirs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simmer-aodirs-module">simmer.aodirs module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-simmer.check_logsheet">simmer.check_logsheet module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-simmer.create_config">simmer.create_config module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-simmer.darks">simmer.darks module</a></li>
@@ -167,13 +167,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>SImMER documentation</li>
+      <li>API</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/source/simmer.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../sources/source/simmer.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -186,67 +186,57 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="simmer-documentation">
-<h1>SImMER documentation<a class="headerlink" href="#simmer-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="api">
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-simmer.add_dark_exp">
 <span id="simmer-add-dark-exp-module"></span><h2>simmer.add_dark_exp module<a class="headerlink" href="#module-simmer.add_dark_exp" title="Permalink to this headline">¶</a></h2>
 <p>For ShARCS, the darks are often produced by an automated script at
 the end of a night. This module adds these frames to the log sheet.</p>
 <dl class="function">
 <dt id="simmer.add_dark_exp.add_dark_exp">
-<code class="descclassname">simmer.add_dark_exp.</code><code class="descname">add_dark_exp</code><span class="sig-paren">(</span><em>tab</em>, <em>inst</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/add_dark_exp.html#add_dark_exp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.add_dark_exp.add_dark_exp" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.add_dark_exp.</code><code class="descname">add_dark_exp</code><span class="sig-paren">(</span><em>tab</em>, <em>inst</em>, <em>log</em>, <em>raw_dir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/add_dark_exp.html#add_dark_exp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.add_dark_exp.add_dark_exp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds dark exposures to the end of log sheet if not specified.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>tab : (string) tab of Excel sheet to be used.
+log : (string path of the logsheet.
+inst : (Instrument object) instrument for which data is being reduced.
+raw_dir : (string) path of the directory containing the raw data.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.add_dark_exp.find_itimes">
-<code class="descclassname">simmer.add_dark_exp.</code><code class="descname">find_itimes</code><span class="sig-paren">(</span><em>inst</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/add_dark_exp.html#find_itimes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.add_dark_exp.find_itimes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read headers for all darks and make a list showing exposure times.
-inst &#8211; instance of an instrument object. Used here for file structure purposes.</p>
+<code class="descclassname">simmer.add_dark_exp.</code><code class="descname">find_itimes</code><span class="sig-paren">(</span><em>inst</em>, <em>raw_dir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/add_dark_exp.html#find_itimes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.add_dark_exp.find_itimes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read headers for all darks and make a list showing exposure times.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>inst : (Instrument object) instrument for which data is being reduced.
+raw_dir : (string) path of the directory containing the raw data.</dd>
+</dl>
 </dd></dl>
 
 </div>
-<div class="section" id="module-simmer.aodirs">
-<span id="simmer-aodirs-module"></span><h2>simmer.aodirs module<a class="headerlink" href="#module-simmer.aodirs" title="Permalink to this headline">¶</a></h2>
-<p>Set directories for AO work. Will change to environment variable alternatives.</p>
-<dl class="function">
-<dt id="simmer.aodirs.basedir">
-<code class="descclassname">simmer.aodirs.</code><code class="descname">basedir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/aodirs.html#basedir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.aodirs.basedir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets base directory for work. Should be deprecated with relative paths soon.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="simmer.aodirs.config_file">
-<code class="descclassname">simmer.aodirs.</code><code class="descname">config_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/aodirs.html#config_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.aodirs.config_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns config file directory.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="simmer.aodirs.raw_dir">
-<code class="descclassname">simmer.aodirs.</code><code class="descname">raw_dir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/aodirs.html#raw_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.aodirs.raw_dir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns directory for raw data.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="simmer.aodirs.reddir">
-<code class="descclassname">simmer.aodirs.</code><code class="descname">reddir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/aodirs.html#reddir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.aodirs.reddir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns directory where reduced data will be output.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="simmer.aodirs.sheetname">
-<code class="descclassname">simmer.aodirs.</code><code class="descname">sheetname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/aodirs.html#sheetname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.aodirs.sheetname" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns log sheet directory.</p>
-</dd></dl>
-
+<div class="section" id="simmer-aodirs-module">
+<h2>simmer.aodirs module<a class="headerlink" href="#simmer-aodirs-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-simmer.check_logsheet">
 <span id="simmer-check-logsheet-module"></span><h2>simmer.check_logsheet module<a class="headerlink" href="#module-simmer.check_logsheet" title="Permalink to this headline">¶</a></h2>
 <p>Capability to check whether logsheet format is conducive to creating a config.</p>
 <dl class="function">
 <dt id="simmer.check_logsheet.check_logsheet">
-<code class="descclassname">simmer.check_logsheet.</code><code class="descname">check_logsheet</code><span class="sig-paren">(</span><em>inst</em>, <em>date=None</em>, <em>add_dark_times=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/check_logsheet.html#check_logsheet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.check_logsheet.check_logsheet" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.check_logsheet.</code><code class="descname">check_logsheet</code><span class="sig-paren">(</span><em>inst</em>, <em>log_name</em>, <em>date=None</em>, <em>add_dark_times=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/check_logsheet.html#check_logsheet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.check_logsheet.check_logsheet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks for common typos/type errors in the logsheet.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd><p class="first">inst : (Instrument object) instrument for which data is being reduced.
+log_name : (string) path of the logsheet.
+date : (string) date of interest, assuming that tabs in the file are different dates
+add_dark_times : (bool) if true, runs the script within add_dark_exp to add the data from the</p>
+<blockquote class="last">
+<div>automated dark script to the log sheet.</div></blockquote>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -255,10 +245,14 @@ inst &#8211; instance of an instrument object. Used here for file structure purp
 <p>Creates config file from logsheet. Will move into either utils or example folder.</p>
 <dl class="function">
 <dt id="simmer.create_config.create_config">
-<code class="descclassname">simmer.create_config.</code><code class="descname">create_config</code><span class="sig-paren">(</span><em>tab</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/create_config.html#create_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.create_config.create_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create config csv file out of tab in logsheet.
-inst: Instrument object.
-nightlist: tab name; list of strings.</p>
+<code class="descclassname">simmer.create_config.</code><code class="descname">create_config</code><span class="sig-paren">(</span><em>tab</em>, <em>log</em>, <em>config_file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/create_config.html#create_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.create_config.create_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create config csv file out of tab in logsheet.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>inst : (Instrument object) Instrument to which the config is related.
+log : (string) path of the logsheet.
+config_file : (string) path of the desired concrete file</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -267,19 +261,30 @@ nightlist: tab name; list of strings.</p>
 <p>Functions to work with darks.</p>
 <dl class="function">
 <dt id="simmer.darks.create_darks">
-<code class="descclassname">simmer.darks.</code><code class="descname">create_darks</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>darklist</em>, <em>inst</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/darks.html#create_darks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.darks.create_darks" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.darks.</code><code class="descname">create_darks</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>darklist</em>, <em>inst</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/darks.html#create_darks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.darks.create_darks" title="Permalink to this definition">¶</a></dt>
 <dd><p>creates the actual darks from a list of dark file numbers, taking
 the median and writing to a file. Returns the final dark.</p>
-<p>reddir: directory for the reduced data
-darklist: list of dark file numbers
-inst: Instrument object</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>reddir : (string) directory for the reduced data
+darklist : string) list of dark file numbers
+inst: (Instrument object) instrument for which data is being reduced.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.darks.dark_driver">
-<code class="descclassname">simmer.darks.</code><code class="descname">dark_driver</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>config</em>, <em>inst</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/darks.html#dark_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.darks.dark_driver" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.darks.</code><code class="descname">dark_driver</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>config</em>, <em>inst</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/darks.html#dark_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.darks.dark_driver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Night should be entered in format &#8216;yyyy_mm_dd&#8217; as string.
 This will point toward a config file for the night with darks listed.flat</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>raw_dir : (string) directory for the raw data
+reddir : (string) directory for the reduced data
+config : (pandas DataFrame) dataframe corresponding to config sheet for data.
+inst : (Instrument object) instrument for which data is being reduced.
+plot : (bool) determines whether or not intermediate plots should be produced.</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -288,20 +293,41 @@ This will point toward a config file for the night with darks listed.flat</p>
 <p>Module for driving large reduction processes.</p>
 <dl class="function">
 <dt id="simmer.drivers.all_driver">
-<code class="descclassname">simmer.drivers.</code><code class="descname">all_driver</code><span class="sig-paren">(</span><em>inst</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/drivers.html#all_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.drivers.all_driver" title="Permalink to this definition">¶</a></dt>
-<dd><p>inst: Instrument object.</p>
+<code class="descclassname">simmer.drivers.</code><code class="descname">all_driver</code><span class="sig-paren">(</span><em>inst</em>, <em>config_file</em>, <em>raw_dir</em>, <em>reddir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/drivers.html#all_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.drivers.all_driver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs all drivers, performing an end-to-end reduction.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>inst : (Instrument object) instrument for which data is being reduced.
+config_file : (string) path of the config file.
+raw_dir : (string) path of the directory containing the raw data.
+reddir : (string) path of the directory to contain the raw data.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.drivers.config_driver">
-<code class="descclassname">simmer.drivers.</code><code class="descname">config_driver</code><span class="sig-paren">(</span><em>inst</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/drivers.html#config_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.drivers.config_driver" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.drivers.</code><code class="descname">config_driver</code><span class="sig-paren">(</span><em>inst</em>, <em>config_file</em>, <em>raw_dir</em>, <em>reddir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/drivers.html#config_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.drivers.config_driver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs all_drivers, terminating afrer running sky_driver.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>inst : (Instrument object) instrument for which data is being reduced.
+config_file : (string) path of the config file.
+raw_dir : (string) path of the directory containing the raw data.
+reddir : (string) path of the directory to contain the raw data.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.drivers.image_driver">
-<code class="descclassname">simmer.drivers.</code><code class="descname">image_driver</code><span class="sig-paren">(</span><em>inst</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/drivers.html#image_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.drivers.image_driver" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.drivers.</code><code class="descname">image_driver</code><span class="sig-paren">(</span><em>inst</em>, <em>config_file</em>, <em>raw_dir</em>, <em>reddir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/drivers.html#image_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.drivers.image_driver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs all_drivers, terminating afrer running image_drivers.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>inst : (Instrument object) instrument for which data is being reduced.
+config_file : (string) path of the config file.
+raw_dir : (string) path of the directory containing the raw data.
+reddir : (string) path of the directory to contain the raw data.</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -310,22 +336,33 @@ This will point toward a config file for the night with darks listed.flat</p>
 <p>Functions to work with flats.</p>
 <dl class="function">
 <dt id="simmer.flats.create_flats">
-<code class="descclassname">simmer.flats.</code><code class="descname">create_flats</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>flatlist</em>, <em>darkfile</em>, <em>inst</em>, <em>filter_name=None</em>, <em>test=False</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/flats.html#create_flats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.flats.create_flats" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.flats.</code><code class="descname">create_flats</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>flatlist</em>, <em>darkfile</em>, <em>inst</em>, <em>filter_name=None</em>, <em>test=False</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/flats.html#create_flats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.flats.create_flats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a flat from a single list of flat files.</p>
-<p>raw_dir : (str) directory where the raw data is stored.
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>raw_dir : (str) directory where the raw data is stored.
 reddir : (str) directory where the reduced data is stored.
 flatlist : (list) list of integers corresponding to flats.
 inst : (inst object) instrument for which data is being reduced.
 center : (tuple) two-element tuple dictating where the center of each image is.
 npix : (int) number of pixels in image.
 pl : (Bool) determines whether plots are produced.
-filter : filter name given if head[&#8216;FILT1NAM&#8217;] == &#8216;Unknown&#8217;</p>
+filter : filter name given if head[&#8216;FILT1NAM&#8217;] == &#8216;Unknown&#8217;</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.flats.flat_driver">
-<code class="descclassname">simmer.flats.</code><code class="descname">flat_driver</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>config</em>, <em>inst</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/flats.html#flat_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.flats.flat_driver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets up and runs create_flats</p>
+<code class="descclassname">simmer.flats.</code><code class="descname">flat_driver</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>config</em>, <em>inst</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/flats.html#flat_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.flats.flat_driver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up and runs create_flats.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>raw_dir : (string) directory for the raw data
+reddir : (string) directory for the reduced data
+config : (pandas DataFrame) dataframe corresponding to config sheet for data.
+inst : (Instrument object) instrument for which data is being reduced.
+plot : (bool) determines whether or not intermediate plots should be produced.</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -334,22 +371,43 @@ filter : filter name given if head[&#8216;FILT1NAM&#8217;] == &#8216;Unknown&#82
 <p>Module to make the image stacking / production occur.</p>
 <dl class="function">
 <dt id="simmer.image.create_im">
-<code class="descclassname">simmer.image.</code><code class="descname">create_im</code><span class="sig-paren">(</span><em>s_dir</em>, <em>ssize1</em>, <em>plot=True</em>, <em>fdirs=None</em>, <em>method='default'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/image.html#create_im"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.image.create_im" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.image.</code><code class="descname">create_im</code><span class="sig-paren">(</span><em>s_dir</em>, <em>ssize1</em>, <em>plot=True</em>, <em>fdirs=None</em>, <em>method='default'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/image.html#create_im"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.image.create_im" title="Permalink to this definition">¶</a></dt>
 <dd><p>Take the shifted, cut down images from before, then perform registration
 and combine. Tests should happen before this, as this is a per-star basis.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.image.create_imstack">
-<code class="descclassname">simmer.image.</code><code class="descname">create_imstack</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>s_dir</em>, <em>imlist</em>, <em>inst</em>, <em>plot=True</em>, <em>filter_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/image.html#create_imstack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.image.create_imstack" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.image.</code><code class="descname">create_imstack</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>s_dir</em>, <em>imlist</em>, <em>inst</em>, <em>plot=True</em>, <em>filter_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/image.html#create_imstack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.image.create_imstack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the stack of images by performing flat division, sky subtraction.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>raw_dir : (string) directory for the raw data
+reddir : (string) directory for the reduced data
+s_dir : (string) directory corresponding to a specific star.
+imlist : (list) list of strings of paths pointing to image files.
+inst : (Instrument object) instrument for which data is being reduced.
+plot : (bool) determines whether or not intermediate plots should be produced.
+fiilter_name : (string) name of the filter used for the images in question.</dd>
+<dt>Outputs:</dt>
+<dd>im_array : (3d array) array of 2d images.
+shifts_all : recording of all the x-y shifts made</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.image.image_driver">
-<code class="descclassname">simmer.image.</code><code class="descname">image_driver</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>config</em>, <em>inst</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/image.html#image_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.image.image_driver" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.image.</code><code class="descname">image_driver</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>config</em>, <em>inst</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/image.html#image_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.image.image_driver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do flat division, sky subtraction, and initial alignment via coords in header.
 Returns Python list of each registration method used per star.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>raw_dir : (string) directory for the raw data
+reddir : (string) directory for the reduced data
+config : (pandas DataFrame) dataframe corresponding to config sheet for data.
+inst : (Instrument object) instrument for which data is being reduced.
+plot : (bool) determines whether or not intermediate plots should be produced.</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -358,12 +416,12 @@ Returns Python list of each registration method used per star.</p>
 <p>Module for instrument class and subclasses.</p>
 <dl class="class">
 <dt id="simmer.insts.Instrument">
-<em class="property">class </em><code class="descclassname">simmer.insts.</code><code class="descname">Instrument</code><span class="sig-paren">(</span><em>take_skies=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#Instrument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.Instrument" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simmer.insts.</code><code class="descname">Instrument</code><span class="sig-paren">(</span><em>take_skies=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#Instrument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.Instrument" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Instantiates an object that dictates instrument-specific reduction techniques.</p>
 <dl class="method">
 <dt id="simmer.insts.Instrument.bad_pix">
-<code class="descname">bad_pix</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#Instrument.bad_pix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.Instrument.bad_pix" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bad_pix</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#Instrument.bad_pix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.Instrument.bad_pix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read in bp file, cut down to size, replace bad
 pixels with median of surrounding pixels.</p>
 </dd></dl>
@@ -382,32 +440,27 @@ pixels with median of surrounding pixels.</p>
 
 <dl class="class">
 <dt id="simmer.insts.PHARO">
-<em class="property">class </em><code class="descclassname">simmer.insts.</code><code class="descname">PHARO</code><span class="sig-paren">(</span><em>take_skies=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#PHARO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simmer.insts.</code><code class="descname">PHARO</code><span class="sig-paren">(</span><em>take_skies=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#PHARO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simmer.insts.Instrument" title="simmer.insts.Instrument"><code class="xref py py-class docutils literal"><span class="pre">simmer.insts.Instrument</span></code></a></p>
 <p>For use on the PHARO instrument at Palomar.</p>
 <dl class="method">
 <dt id="simmer.insts.PHARO.adjust_array">
-<code class="descname">adjust_array</code><span class="sig-paren">(</span><em>array</em>, <em>nims</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#PHARO.adjust_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO.adjust_array" title="Permalink to this definition">¶</a></dt>
+<code class="descname">adjust_array</code><span class="sig-paren">(</span><em>array</em>, <em>nims</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#PHARO.adjust_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO.adjust_array" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="simmer.insts.PHARO.adjust_im">
-<code class="descname">adjust_im</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#PHARO.adjust_im"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO.adjust_im" title="Permalink to this definition">¶</a></dt>
+<code class="descname">adjust_im</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#PHARO.adjust_im"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO.adjust_im" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="simmer.insts.PHARO.adjust_thisimage">
-<code class="descname">adjust_thisimage</code><span class="sig-paren">(</span><em>thisimage</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#PHARO.adjust_thisimage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO.adjust_thisimage" title="Permalink to this definition">¶</a></dt>
+<code class="descname">adjust_thisimage</code><span class="sig-paren">(</span><em>thisimage</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#PHARO.adjust_thisimage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO.adjust_thisimage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="simmer.insts.PHARO.center">
 <code class="descname">center</code><em class="property"> = nan</em><a class="headerlink" href="#simmer.insts.PHARO.center" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="simmer.insts.PHARO.check_filestructure">
-<code class="descname">check_filestructure</code><span class="sig-paren">(</span><em>night</em>, <em>rawfilename</em>, <em>newfilename</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#PHARO.check_filestructure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO.check_filestructure" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -417,7 +470,7 @@ pixels with median of surrounding pixels.</p>
 
 <dl class="method">
 <dt id="simmer.insts.PHARO.filt">
-<code class="descname">filt</code><span class="sig-paren">(</span><em>nims</em>, <em>head</em>, <em>filter_name</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#PHARO.filt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO.filt" title="Permalink to this definition">¶</a></dt>
+<code class="descname">filt</code><span class="sig-paren">(</span><em>nims</em>, <em>head</em>, <em>filter_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#PHARO.filt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO.filt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given the header of a FITS file, returns its filter.</p>
 </dd></dl>
 
@@ -433,13 +486,13 @@ pixels with median of surrounding pixels.</p>
 
 <dl class="method">
 <dt id="simmer.insts.PHARO.head">
-<code class="descname">head</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#PHARO.head"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO.head" title="Permalink to this definition">¶</a></dt>
+<code class="descname">head</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#PHARO.head"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO.head" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the head of a FITS file.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="simmer.insts.PHARO.itime">
-<code class="descname">itime</code><span class="sig-paren">(</span><em>head</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#PHARO.itime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO.itime" title="Permalink to this definition">¶</a></dt>
+<code class="descname">itime</code><span class="sig-paren">(</span><em>head</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#PHARO.itime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.PHARO.itime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a FITS header, returns the true integration time
 for a file.</p>
 </dd></dl>
@@ -478,28 +531,28 @@ for a file.</p>
 
 <dl class="class">
 <dt id="simmer.insts.ShARCS">
-<em class="property">class </em><code class="descclassname">simmer.insts.</code><code class="descname">ShARCS</code><span class="sig-paren">(</span><em>take_skies=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#ShARCS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simmer.insts.</code><code class="descname">ShARCS</code><span class="sig-paren">(</span><em>take_skies=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#ShARCS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simmer.insts.Instrument" title="simmer.insts.Instrument"><code class="xref py py-class docutils literal"><span class="pre">simmer.insts.Instrument</span></code></a></p>
 <p>For use on the ShARCS camera on the Shane 3m telescope
 at Lick observatory.</p>
 <dl class="method">
 <dt id="simmer.insts.ShARCS.adjust_array">
-<code class="descname">adjust_array</code><span class="sig-paren">(</span><em>array</em>, <em>nims</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#ShARCS.adjust_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.adjust_array" title="Permalink to this definition">¶</a></dt>
+<code class="descname">adjust_array</code><span class="sig-paren">(</span><em>array</em>, <em>nims</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#ShARCS.adjust_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.adjust_array" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="simmer.insts.ShARCS.adjust_im">
-<code class="descname">adjust_im</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#ShARCS.adjust_im"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.adjust_im" title="Permalink to this definition">¶</a></dt>
+<code class="descname">adjust_im</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#ShARCS.adjust_im"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.adjust_im" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="simmer.insts.ShARCS.adjust_thisimage">
-<code class="descname">adjust_thisimage</code><span class="sig-paren">(</span><em>thisimage</em>, <em>rawfile</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#ShARCS.adjust_thisimage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.adjust_thisimage" title="Permalink to this definition">¶</a></dt>
+<code class="descname">adjust_thisimage</code><span class="sig-paren">(</span><em>thisimage</em>, <em>rawfile</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#ShARCS.adjust_thisimage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.adjust_thisimage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="simmer.insts.ShARCS.bad_pix">
-<code class="descname">bad_pix</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#ShARCS.bad_pix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.bad_pix" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bad_pix</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#ShARCS.bad_pix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.bad_pix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read in bp file, cut down to size, replace bad
 pixels with median of surrounding pixels.</p>
 </dd></dl>
@@ -516,7 +569,7 @@ pixels with median of surrounding pixels.</p>
 
 <dl class="method">
 <dt id="simmer.insts.ShARCS.filt">
-<code class="descname">filt</code><span class="sig-paren">(</span><em>nims</em>, <em>head</em>, <em>filter_name</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#ShARCS.filt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.filt" title="Permalink to this definition">¶</a></dt>
+<code class="descname">filt</code><span class="sig-paren">(</span><em>nims</em>, <em>head</em>, <em>filter_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#ShARCS.filt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.filt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given the header of a FITS file, returns its filter.</p>
 </dd></dl>
 
@@ -532,13 +585,13 @@ pixels with median of surrounding pixels.</p>
 
 <dl class="method">
 <dt id="simmer.insts.ShARCS.head">
-<code class="descname">head</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#ShARCS.head"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.head" title="Permalink to this definition">¶</a></dt>
+<code class="descname">head</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#ShARCS.head"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.head" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a FITS file, returns its head.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="simmer.insts.ShARCS.itime">
-<code class="descname">itime</code><span class="sig-paren">(</span><em>head</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/insts.html#ShARCS.itime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.itime" title="Permalink to this definition">¶</a></dt>
+<code class="descname">itime</code><span class="sig-paren">(</span><em>head</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/insts.html#ShARCS.itime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.insts.ShARCS.itime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a FITS header, returns the true integration time
 for a file.</p>
 </dd></dl>
@@ -582,71 +635,35 @@ for a file.</p>
 and stacking.</p>
 <dl class="function">
 <dt id="simmer.registration.bytescale">
-<code class="descclassname">simmer.registration.</code><code class="descname">bytescale</code><span class="sig-paren">(</span><em>data</em>, <em>cmin=None</em>, <em>cmax=None</em>, <em>high=255</em>, <em>low=0</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#bytescale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.bytescale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Byte scales an array (image).
-Byte scaling means converting the input image to uint8 dtype and scaling
-the range to <code class="docutils literal"><span class="pre">(low,</span> <span class="pre">high)</span></code> (default 0-255).
-If the input image already has dtype uint8, no scaling is done.
-This function is only available if Python Imaging Library (PIL) is installed.
-:Parameters: * <strong>data</strong> (<em>ndarray</em>) &#8211; PIL image data array.</p>
-<blockquote>
-<div><ul class="simple">
-<li><strong>cmin</strong> (<em>scalar, optional</em>) &#8211; Bias scaling of small values. Default is <code class="docutils literal"><span class="pre">data.min()</span></code>.</li>
-<li><strong>cmax</strong> (<em>scalar, optional</em>) &#8211; Bias scaling of large values. Default is <code class="docutils literal"><span class="pre">data.max()</span></code>.</li>
-<li><strong>high</strong> (<em>scalar, optional</em>) &#8211; Scale max value to <cite>high</cite>.  Default is 255.</li>
-<li><strong>low</strong> (<em>scalar, optional</em>) &#8211; Scale min value to <cite>low</cite>.  Default is 0.</li>
-</ul>
-</div></blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>img_array</strong> &#8211; The byte-scaled array.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">uint8 ndarray</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="k">import</span> <span class="n">bytescale</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">91.06794177</span><span class="p">,</span>   <span class="mf">3.39058326</span><span class="p">,</span>  <span class="mf">84.4221549</span> <span class="p">],</span>
-<span class="gp">... </span>                <span class="p">[</span> <span class="mf">73.88003259</span><span class="p">,</span>  <span class="mf">80.91433048</span><span class="p">,</span>   <span class="mf">4.88878881</span><span class="p">],</span>
-<span class="gp">... </span>                <span class="p">[</span> <span class="mf">51.53875334</span><span class="p">,</span>  <span class="mf">34.45808177</span><span class="p">,</span>  <span class="mf">27.5873488</span> <span class="p">]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bytescale</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-<span class="go">array([[255,   0, 236],</span>
-<span class="go">       [205, 225,   4],</span>
-<span class="go">       [140,  90,  70]], dtype=uint8)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bytescale</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="go">array([[200, 100, 192],</span>
-<span class="go">       [180, 188, 102],</span>
-<span class="go">       [155, 135, 128]], dtype=uint8)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bytescale</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cmax</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
-<span class="go">array([[91,  3, 84],</span>
-<span class="go">       [74, 81,  5],</span>
-<span class="go">       [52, 34, 28]], dtype=uint8)</span>
-</pre></div>
-</div>
+<code class="descclassname">simmer.registration.</code><code class="descname">bytescale</code><span class="sig-paren">(</span><em>data</em>, <em>cmin=None</em>, <em>cmax=None</em>, <em>high=255</em>, <em>low=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#bytescale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.bytescale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Byte scales an image.</p>
+<dl class="docutils">
+<dt>inputs:</dt>
+<dd>data : (ndarray) PIL image data array.
+cmin : (int)  Bias scaling of small values. Default is <code class="docutils literal"><span class="pre">data.min()</span></code>.
+cmax : (int) Bias scaling of large values. Default is <code class="docutils literal"><span class="pre">data.max()</span></code>.
+high : (int) Scale max value to <cite>high</cite>.  Default is 255.
+low : (int) Scale min value to <cite>low</cite>.  Default is 0.</dd>
+<dt>outputs:</dt>
+<dd>img_array : (uint8 ndarray) The byte-scaled array.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.registration.calc_shifts">
-<code class="descclassname">simmer.registration.</code><code class="descname">calc_shifts</code><span class="sig-paren">(</span><em>dat</em>, <em>x_initial</em>, <em>y_initial</em>, <em>xrad</em>, <em>yrad</em>, <em>find='max'</em>, <em>method='radon'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#calc_shifts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.calc_shifts" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.registration.</code><code class="descname">calc_shifts</code><span class="sig-paren">(</span><em>dat</em>, <em>x_initial</em>, <em>y_initial</em>, <em>xrad</em>, <em>yrad</em>, <em>find='max'</em>, <em>method='radon'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#calc_shifts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.calc_shifts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do the radon search and then translate back to image coordinates.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.registration.find_wide_binary">
-<code class="descclassname">simmer.registration.</code><code class="descname">find_wide_binary</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#find_wide_binary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.find_wide_binary" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.registration.</code><code class="descname">find_wide_binary</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#find_wide_binary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.find_wide_binary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs the first step of image registration for a science image that
 contains a wide binary. User input selects which target is the primary star
 of interest in the first frame of the target.</p>
 <dl class="docutils">
 <dt>inputs:</dt>
-<dd><p class="first">image : (2-d array) photon counts at each pixel of each science image.
-relative : (2-d array, default None) location of primary star. This</p>
-<blockquote class="last">
-<div>argument is only passed in the wide binary case.</div></blockquote>
-</dd>
+<dd>image : (2-d array) photon counts at each pixel of each science image.</dd>
 <dt>outputs:</dt>
 <dd>image_centered : (2-d array) image cenered by the rotations method.</dd>
 </dl>
@@ -654,79 +671,50 @@ relative : (2-d array, default None) location of primary star. This</p>
 
 <dl class="function">
 <dt id="simmer.registration.fromimage">
-<code class="descclassname">simmer.registration.</code><code class="descname">fromimage</code><span class="sig-paren">(</span><em>im</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#fromimage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.fromimage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a copy of a PIL image as a numpy array.
-This function is only available if Python Imaging Library (PIL) is installed.
-:Parameters: <strong>im</strong> (<em>PIL image</em>) &#8211; Input image.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>fromimage</strong> &#8211; The different colour bands/channels are stored in the
-third dimension, such that a grey-image is MxN, an
-RGB-image MxNx3 and an RGBA-image MxNx4.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">ndarray</td>
-</tr>
-</tbody>
-</table>
+<code class="descclassname">simmer.registration.</code><code class="descname">fromimage</code><span class="sig-paren">(</span><em>im</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#fromimage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.fromimage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turns a PIL image into a numpy array.</p>
+<dl class="docutils">
+<dt>inputs:</dt>
+<dd>im : (PIL image) Input image.</dd>
+<dt>outputs:</dt>
+<dd>fromimage : (ndarray)</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.registration.imresize">
-<code class="descclassname">simmer.registration.</code><code class="descname">imresize</code><span class="sig-paren">(</span><em>arr</em>, <em>size</em>, <em>interp='bilinear'</em>, <em>mode=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#imresize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.imresize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resize an image.
-This function is only available if Python Imaging Library (PIL) is installed.
-.. warning:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>This function uses `bytescale` under the hood to rescale images to use
-the full (0, 255) range if ``mode`` is one of ``None, &#39;L&#39;, &#39;P&#39;, &#39;l&#39;``.
-It will also cast data for 2-D images to ``uint32`` for ``mode=None``
-(which is the default).
-</pre></div>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>arr</strong> (<em>ndarray</em>) &#8211; The array of image to be resized.</li>
-<li><strong>size</strong> (<em>int, float or tuple</em>) &#8211;<ul>
+<code class="descclassname">simmer.registration.</code><code class="descname">imresize</code><span class="sig-paren">(</span><em>arr</em>, <em>size</em>, <em>interp='bilinear'</em>, <em>mode=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#imresize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.imresize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resizes an image.</p>
+<dl class="docutils">
+<dt>inputs</dt>
+<dd><p class="first">arr : (ndarray) The array of image to be resized.
+size : int, float or tuple</p>
+<blockquote>
+<div><ul class="simple">
 <li>int   - Percentage of current size.</li>
 <li>float - Fraction of current size.</li>
 <li>tuple - Size of the output image (height, width).</li>
 </ul>
-</li>
-<li><strong>interp</strong> (<em>str, optional</em>) &#8211; Interpolation to use for re-sizing (&#8216;nearest&#8217;, &#8216;lanczos&#8217;, &#8216;bilinear&#8217;,
-&#8216;bicubic&#8217; or &#8216;cubic&#8217;).</li>
-<li><strong>mode</strong> (<em>str, optional</em>) &#8211; The PIL image mode (&#8216;P&#8217;, &#8216;L&#8217;, etc.) to convert <cite>arr</cite> before resizing.
+</div></blockquote>
+<dl class="last docutils">
+<dt>interp <span class="classifier-delimiter">:</span> <span class="classifier">str, optional</span></dt>
+<dd>Interpolation to use for re-sizing (&#8216;nearest&#8217;, &#8216;lanczos&#8217;, &#8216;bilinear&#8217;,
+&#8216;bicubic&#8217; or &#8216;cubic&#8217;).</dd>
+<dt>mode <span class="classifier-delimiter">:</span> <span class="classifier">str, optional</span></dt>
+<dd>The PIL image mode (&#8216;P&#8217;, &#8216;L&#8217;, etc.) to convert <cite>arr</cite> before resizing.
 If <code class="docutils literal"><span class="pre">mode=None</span></code> (the default), 2-D images will be treated like
 <code class="docutils literal"><span class="pre">mode='L'</span></code>, i.e. casting to long integer.  For 3-D and 4-D arrays,
-<cite>mode</cite> will be set to <code class="docutils literal"><span class="pre">'RGB'</span></code> and <code class="docutils literal"><span class="pre">'RGBA'</span></code> respectively.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>imresize</strong> &#8211; The resized array of image.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">ndarray</p>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
-<dt><a class="reference internal" href="#simmer.registration.toimage" title="simmer.registration.toimage"><code class="xref py py-func docutils literal"><span class="pre">toimage()</span></code></a></dt>
-<dd>Implicitly used to convert <cite>arr</cite> according to <cite>mode</cite>.</dd>
-<dt><code class="xref py py-func docutils literal"><span class="pre">scipy.ndimage.zoom()</span></code></dt>
-<dd>More generic implementation that does not use PIL.</dd>
+<cite>mode</cite> will be set to <code class="docutils literal"><span class="pre">'RGB'</span></code> and <code class="docutils literal"><span class="pre">'RGBA'</span></code> respectively.</dd>
 </dl>
-</div>
+</dd>
+<dt>outputs:</dt>
+<dd>imresize : (ndarray) The resized array of image.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.registration.register_bruteforce">
-<code class="descclassname">simmer.registration.</code><code class="descname">register_bruteforce</code><span class="sig-paren">(</span><em>image</em>, <em>rough_center=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#register_bruteforce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.register_bruteforce" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.registration.</code><code class="descname">register_bruteforce</code><span class="sig-paren">(</span><em>image</em>, <em>rough_center=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#register_bruteforce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.register_bruteforce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs the default image registration scheme. Shifts the center of the
 image to the peak.</p>
 <dl class="docutils">
@@ -743,63 +731,89 @@ rough_center : (2-d array, default None) location of primary star. This</p>
 
 <dl class="function">
 <dt id="simmer.registration.register_saturated">
-<code class="descclassname">simmer.registration.</code><code class="descname">register_saturated</code><span class="sig-paren">(</span><em>image</em>, <em>ssize1</em>, <em>newshifts1</em>, <em>rough_center=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#register_saturated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.register_saturated" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.registration.</code><code class="descname">register_saturated</code><span class="sig-paren">(</span><em>image</em>, <em>searchsize1</em>, <em>newshifts1</em>, <em>rough_center=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#register_saturated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.register_saturated" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs image registration when a saturated star is present in
 the science image.</p>
 <dl class="docutils">
 <dt>inputs:</dt>
 <dd><p class="first">image : (2-d array) photon counts at each pixel of each science image.
+searchsize1 : (int) initial size of search for center of image.
+newshifts1 : (list) keeps tracks of x-y shifts.
 rough_center : (2-d array, default None) location of primary star. This</p>
 <blockquote class="last">
 <div>argument is only passed in the wide binary case.</div></blockquote>
 </dd>
 <dt>outputs:</dt>
 <dd>image_centered : (2-d array) image centered by the rotations method.
-rot : the rotation</dd>
+rot : the rotation
+newshifts1 : (list) keeps tracks of x-y shifts.</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.registration.roll2d">
-<code class="descclassname">simmer.registration.</code><code class="descname">roll2d</code><span class="sig-paren">(</span><em>dat</em>, <em>xshift</em>, <em>yshift</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#roll2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.roll2d" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.registration.</code><code class="descname">roll2d</code><span class="sig-paren">(</span><em>dat</em>, <em>xshift</em>, <em>yshift</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#roll2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.roll2d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Essentially performs numpy roll function in 2 dimensions.</p>
+<dl class="docutils">
+<dt>inputs:</dt>
+<dd>dat : (2d array) image data.
+xshift : (int) shift in the x direction.
+yshift : (int) shift in the y direction.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.registration.roll_shift">
-<code class="descclassname">simmer.registration.</code><code class="descname">roll_shift</code><span class="sig-paren">(</span><em>image</em>, <em>shifts</em>, <em>cval=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#roll_shift"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.roll_shift" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.registration.</code><code class="descname">roll_shift</code><span class="sig-paren">(</span><em>image</em>, <em>shifts</em>, <em>cval=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#roll_shift"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.roll_shift" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enter shifts as (drow, dcol)</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.registration.rot_search">
-<code class="descclassname">simmer.registration.</code><code class="descname">rot_search</code><span class="sig-paren">(</span><em>dat</em>, <em>x_initial</em>, <em>y_initial</em>, <em>xrad</em>, <em>yrad</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#rot_search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.rot_search" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.registration.</code><code class="descname">rot_search</code><span class="sig-paren">(</span><em>dat</em>, <em>x_initial</em>, <em>y_initial</em>, <em>xrad</em>, <em>yrad</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#rot_search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.rot_search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform rotational search.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>dat : (2d array) image data.
+x_initial : (int) the initial guess for the x-coordinate of the center.
+y_initial : (int) the initial guess for the y-coordinate of the center.
+xrad : (int) radius in x to search.
+yrad : (int) radius in y to search.</dd>
+<dt>outputs:</dt>
+<dd>(xshift, yshift) : (tuple) record of how much the image was shifted in x a dny
+out : (2d array) output shifted image</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.registration.rotate_sub">
-<code class="descclassname">simmer.registration.</code><code class="descname">rotate_sub</code><span class="sig-paren">(</span><em>dat</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#rotate_sub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.rotate_sub" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.registration.</code><code class="descname">rotate_sub</code><span class="sig-paren">(</span><em>dat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#rotate_sub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.rotate_sub" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotate the image about the center point, then subtract from original and record residuals.
 Does this at set angles.</p>
+<dl class="docutils">
+<dt>inputs:</dt>
+<dd>dat : (2d array) image data.</dd>
+<dt>outputs:</dt>
+<dd>total_residuals : (float) the summed total residuals.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.registration.run_rot">
-<code class="descclassname">simmer.registration.</code><code class="descname">run_rot</code><span class="sig-paren">(</span><em>image</em>, <em>searchsize</em>, <em>center</em>, <em>newsize</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#run_rot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.run_rot" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.registration.</code><code class="descname">run_rot</code><span class="sig-paren">(</span><em>image</em>, <em>searchsize</em>, <em>center</em>, <em>newsize</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#run_rot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.run_rot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs all rotations.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.registration.shift_bruteforce">
-<code class="descclassname">simmer.registration.</code><code class="descname">shift_bruteforce</code><span class="sig-paren">(</span><em>image</em>, <em>base_position=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#shift_bruteforce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.shift_bruteforce" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.registration.</code><code class="descname">shift_bruteforce</code><span class="sig-paren">(</span><em>image</em>, <em>base_position=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#shift_bruteforce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.shift_bruteforce" title="Permalink to this definition">¶</a></dt>
 <dd><p>This will shift the maximum pixel to base_position (i.e. the center of image).
 Make sure base_position is entered as (int,int).</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.registration.toimage">
-<code class="descclassname">simmer.registration.</code><code class="descname">toimage</code><span class="sig-paren">(</span><em>arr</em>, <em>high=255</em>, <em>low=0</em>, <em>cmin=None</em>, <em>cmax=None</em>, <em>pal=None</em>, <em>mode=None</em>, <em>channel_axis=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/registration.html#toimage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.toimage" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.registration.</code><code class="descname">toimage</code><span class="sig-paren">(</span><em>arr</em>, <em>high=255</em>, <em>low=0</em>, <em>cmin=None</em>, <em>cmax=None</em>, <em>mode=None</em>, <em>channel_axis=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/registration.html#toimage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.registration.toimage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Takes a numpy array and returns a PIL image.
 This function is only available if Python Imaging Library (PIL) is installed.
 The mode of the PIL image depends on the array shape and the <cite>pal</cite> and
@@ -829,7 +843,7 @@ The numpy array must be either 2 dimensional or 3 dimensional.</p>
 to s0512.fits from night 2015_10_26.</p>
 <dl class="function">
 <dt id="simmer.search_headers.search_headers">
-<code class="descclassname">simmer.search_headers.</code><code class="descname">search_headers</code><span class="sig-paren">(</span><em>inst</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/search_headers.html#search_headers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.search_headers.search_headers" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.search_headers.</code><code class="descname">search_headers</code><span class="sig-paren">(</span><em>inst</em>, <em>raw_dir</em>, <em>basedir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/search_headers.html#search_headers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.search_headers.search_headers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to perform search.</p>
 </dd></dl>
 
@@ -839,72 +853,135 @@ to s0512.fits from night 2015_10_26.</p>
 <p>Functions to work with skies.</p>
 <dl class="function">
 <dt id="simmer.sky.create_skies">
-<code class="descclassname">simmer.sky.</code><code class="descname">create_skies</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>s_dir</em>, <em>skylist</em>, <em>inst</em>, <em>plot=True</em>, <em>filter_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/sky.html#create_skies"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.sky.create_skies" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.sky.</code><code class="descname">create_skies</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>s_dir</em>, <em>skylist</em>, <em>inst</em>, <em>plot=True</em>, <em>filter_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/sky.html#create_skies"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.sky.create_skies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a sky from a single list of skies.
 sf_dir is the reduced directory for the specific star and filter.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>raw_dir : (string) directory for the raw data
+reddir : (string) directory for the reduced data
+s_dir : (string) directory corresponding to a specific star.
+skylist : (list) list of strings of paths pointing to sky files.
+inst : (Instrument object) instrument for which data is being reduced.
+plot : (bool) determines whether or not intermediate plots should be produced.</dd>
+<dt>Outputs:</dt>
+<dd>final_sky : (2D array) medianed sky image.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.sky.sky_driver">
-<code class="descclassname">simmer.sky.</code><code class="descname">sky_driver</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>config</em>, <em>inst</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/sky.html#sky_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.sky.sky_driver" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.sky.</code><code class="descname">sky_driver</code><span class="sig-paren">(</span><em>raw_dir</em>, <em>reddir</em>, <em>config</em>, <em>inst</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/sky.html#sky_driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.sky.sky_driver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Night should be entered in format &#8216;yyyy_mm_dd&#8217; as string.
 This will point toward a config file for the night with flats listed.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>raw_dir : (string) directory for the raw data
+reddir : (string) directory for the reduced data
+config : (pandas DataFrame) dataframe corresponding to config sheet for data.
+inst : (Instrument object) instrument for which data is being reduced.
+plot : (bool) determines whether or not intermediate plots should be produced.</dd>
+</dl>
 </dd></dl>
 
 </div>
 <div class="section" id="module-simmer.utils">
 <span id="simmer-utils-module"></span><h2>simmer.utils module<a class="headerlink" href="#module-simmer.utils" title="Permalink to this headline">¶</a></h2>
-<p>This module provides utility functions for the reuction pipeline.</p>
+<p>This module provides utility functions for the reduction pipeline.</p>
 <dl class="function">
 <dt id="simmer.utils.find_angle">
-<code class="descclassname">simmer.utils.</code><code class="descname">find_angle</code><span class="sig-paren">(</span><em>loc1</em>, <em>loc2</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/utils.html#find_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.utils.find_angle" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.utils.</code><code class="descname">find_angle</code><span class="sig-paren">(</span><em>loc1</em>, <em>loc2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/utils.html#find_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.utils.find_angle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculated the angle between two locations on a grid.</p>
 <dl class="docutils">
-<dt>inputs:</dt>
+<dt>Inputs:</dt>
 <dd>loc1 : (tuple) first location.
 relative : (tuple) second location.</dd>
-<dt>outputs:</dt>
+<dt>Outputs:</dt>
 <dd>angle : (float) real-valued angle between loc1 and loc2.</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.utils.header_subsection">
-<code class="descclassname">simmer.utils.</code><code class="descname">header_subsection</code><span class="sig-paren">(</span><em>input_image_file</em>, <em>npix</em>, <em>center</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/utils.html#header_subsection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.utils.header_subsection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads out the subsection of a heade</p>
+<code class="descclassname">simmer.utils.</code><code class="descname">header_subsection</code><span class="sig-paren">(</span><em>input_image_file</em>, <em>npix</em>, <em>center</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/utils.html#header_subsection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.utils.header_subsection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads out the header of a subsection.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>input_image : (2D array) image of which a subsection is desired.
+center : (tuple) center of image, with format (x, y)
+npix : (float) value for size of return image. If non-square image desired, enter as list.</dd>
+<dt>Outputs:</dt>
+<dd>header : (FITS header) header of the image file, adjusted accordingly.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.utils.image_subsection">
-<code class="descclassname">simmer.utils.</code><code class="descname">image_subsection</code><span class="sig-paren">(</span><em>input_image</em>, <em>npix</em>, <em>center</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/utils.html#image_subsection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.utils.image_subsection" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.utils.</code><code class="descname">image_subsection</code><span class="sig-paren">(</span><em>input_image</em>, <em>npix</em>, <em>center</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/utils.html#image_subsection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.utils.image_subsection" title="Permalink to this definition">¶</a></dt>
 <dd><p>reads in a full image array, selects the relevant subsection of the array,
-and returns the new array, transposed for use with python.
-input_image must be 2D
-center: tuple with format (x, y)
-npix: value for size of return image. If non-square image desired, enter as list.</p>
+and returns the new array, transposed for use with Python.
+input_image must be 2D</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd><p class="first">input_image : (2D array) image of which a subsection is desired.
+center : (tuple) center of image, with format (x, y)
+npix : (float) value for size of return image. If non-square image desired, enter as list.</p>
 <p>default: center = (750, 1100)
 npix = 600 for inscribed region or npix = 1000 for circumscribing region</p>
-<p>transposed = np.rot90(input_image.T,2)
+<p class="last">transposed = np.rot90(input_image.T,2)
 transposed = np.rot90(input_image,2)
-center = (2047-center[0],2047-center[1])</p>
+center = (2047-center[0],2047-center[1]</p>
+</dd>
+<dt>Outputs:</dt>
+<dd>subsection : (2d array) subsection of original image.</dd>
+</dl>
+<p>)</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.utils.make_filelist">
-<code class="descclassname">simmer.utils.</code><code class="descname">make_filelist</code><span class="sig-paren">(</span><em>directory</em>, <em>numlist</em>, <em>inst</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/utils.html#make_filelist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.utils.make_filelist" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.utils.</code><code class="descname">make_filelist</code><span class="sig-paren">(</span><em>directory</em>, <em>numlist</em>, <em>inst</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/utils.html#make_filelist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.utils.make_filelist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turn a list of numbers into a list of properly formatted filenames.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>directory : (string) path leading to directory of interest.
+numlist : (list) list of numbers corresponding to fits files.
+inst : (Instrument object) instrument for which data is being reduced.</dd>
+<dt>Outputs:</dt>
+<dd>filelist : (list) list of strings pertaining to files of interest</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.utils.plot_array">
-<code class="descclassname">simmer.utils.</code><code class="descname">plot_array</code><span class="sig-paren">(</span><em>im_array</em>, <em>vmin</em>, <em>vmax</em>, <em>directory</em>, <em>filename</em>, <em>extent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/utils.html#plot_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.utils.plot_array" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.utils.</code><code class="descname">plot_array</code><span class="sig-paren">(</span><em>im_array</em>, <em>vmin</em>, <em>vmax</em>, <em>directory</em>, <em>filename</em>, <em>extent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/utils.html#plot_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.utils.plot_array" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots arrays produced in the process of the pipeline.</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd><p class="first">im_array : (3D array) array of 2D images.
+vmin : (int) minimum for linear color mapping of plots.
+vmax : (int) maximum for linear color mapping of plots.
+directory : (str) path to directory to which the image file will be saved.
+filename : (str) name of file to which the image will be saved.
+extent : (tuple) from matplotlib documentation: controls the bounding box in data coordinates that</p>
+<blockquote class="last">
+<div>the image will fill specified as (left, right, bottom, top) in data coordinates</div></blockquote>
+</dd>
+<dt>Outputs:</dt>
+<dd>fig : (Matplotlib figure) plotted figure.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="simmer.utils.read_imcube">
-<code class="descclassname">simmer.utils.</code><code class="descname">read_imcube</code><span class="sig-paren">(</span><em>filelist</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/simmer/utils.html#read_imcube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.utils.read_imcube" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">simmer.utils.</code><code class="descname">read_imcube</code><span class="sig-paren">(</span><em>filelist</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/simmer/utils.html#read_imcube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#simmer.utils.read_imcube" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads a stack of fits files into an image cube of dimensions (nims, xpix, ypix).</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>filelist : (list) list of strings pertaining to files of interest.</dd>
+<dt>Outputs:</dt>
+<dd>im_array : (3D array) array of 2D arrays pertaining to the files in filelist.</dd>
+</dl>
 </dd></dl>
 
 </div>
