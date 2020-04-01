@@ -24,7 +24,7 @@ before_install:
   - ssh-add deploy_key
 
 deploy:
-  provider: pages:git
+  provider: script
   deploy_key: deploy_key
   target_branch: master
   keep_history: true
