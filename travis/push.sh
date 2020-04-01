@@ -2,7 +2,9 @@
 
 setup_git() {
   git config --global user.email "asavel@berkeley.edu"
-  git config --global user.name "arjunsavel"
+  git config --global user.name "Arjun Savel"
+  git config --global push.default matching
+
   # chmod 400 deploy_key
   echo "  IdentityFile  deploy_key" >> ~/.ssh/config
   echo "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
