@@ -7,7 +7,7 @@ before_install:
   -in deploy_key.enc -out deploy_key -d
 deploy:
   provider: pages
-  local_dir: arjunsavel.github.io
+  local_dir: .
   deploy_key: deploy_key
   edge:
     branch: master
