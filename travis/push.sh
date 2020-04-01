@@ -21,7 +21,7 @@ commit_website_files() {
 }
 
 upload_files() {
-  git remote add origin git@github.com:arjunsavel/arjunsavel.github.io.git > /dev/null 2>&1
+  git remote set-url origin git@github.com:arjunsavel/arjunsavel.github.io.git
 	if ! git push --set-upstream origin master ; then
 	  _err "git push error"
 	fi 
