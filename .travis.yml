@@ -3,6 +3,8 @@ language: python            # this works for Linux but is an error on macOS or W
 deploy:
   provider: pages:git
   deploy_key: 'key.pub'
+  target_branch: 'master'
+  verbose: True
 jobs:
   include:
     # - name: "Python 3.5.4 on Windows"
