@@ -7,7 +7,7 @@ before_install:
   -in deploy_key.enc -out /home/travis/.dpl/deploy_key -d
 deploy:
   provider: pages:git
-  deploy_key: "/home/travis/.dpl/deploy_key"
+  deploy_key: ~/.dpl/deploy_key
   edge:
     branch: master
   verbose: true
