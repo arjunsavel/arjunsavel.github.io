@@ -1,5 +1,8 @@
 language: python            # this works for Linux but is an error on macOS or Windows
 cache: pip
+deploy:
+  provider: pages:git
+  deploy_key: 'key.pub'
 jobs:
   include:
     # - name: "Python 3.5.4 on Windows"
