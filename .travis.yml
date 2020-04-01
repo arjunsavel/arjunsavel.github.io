@@ -2,6 +2,16 @@ language: python
 addons:
   ssh_known_hosts:
   - github.com
+git:
+  url: git@github.com:arjunsavel/arjunsavel.github.io.git
+  branch: master
+  auth:
+    type: ssh
+    privateKey: deploy_key.enc
+    sslVerify: true
+  signature:
+    name: Arjun Savel
+    email: asavel@berkeley.edu
 branches:
   only:
   - website
