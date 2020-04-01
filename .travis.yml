@@ -12,7 +12,7 @@ deploy:
   local_dir: arjunsavel.github.io
   deploy_key: deploy_key
   edge: 
-    branch: 'master'
+    branch: master
   verbose: True
   skip_cleanup: True
 
@@ -39,5 +39,4 @@ install:
 script:
   - python3 -m unittest discover tests
 
-# after_success:
-#   - bash <(curl -s https://codecov.io/bash) -t 9c990c5a-0b27-4918-a5b6-3d5e10d05c4f
+after_success: "./travis.sh"
