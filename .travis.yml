@@ -9,6 +9,8 @@ before_install:
 deploy:
   provider: pages:git
   deploy_key: deploy_key
+  target_branch: master
+  keep_history: true
   edge:
     branch: master
   verbose: true
