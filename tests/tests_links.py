@@ -31,13 +31,11 @@ class TestLinks(unittest.TestCase):
 			links = get_links("index.html")
 			good_link = True
 		else:
-			print(page)
 			links = get_links(page)
 		for link in links:
 			if link[:4] != 'http' and link[-4:] == 'html': # if it's an internal link
 				try:
 					f=codecs.open(link, 'r')
-					print('recursing!')
 					self.test_internal_html(page=link)
 					f.close()
 				except FileNotFoundError: # internal link doesn't exist doesn't exist
