@@ -19,3 +19,5 @@ install:
 - pip3 install -r requirements.txt
 script:
 - python3 -m unittest discover tests
+after_success:
+  - .travis/push.sh
