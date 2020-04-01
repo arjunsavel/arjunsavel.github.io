@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>src.simmer.tests.tests_1 &mdash; SImMER 1.0.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/favicon.png"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../../',
+              VERSION:'1.0.0',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> SImMER
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pages/about.html">About SImMER</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pages/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pages/Using.html">Using the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pages/FAQ.html">FAQ</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/simmer.html">SImMER documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">SImMER</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>src.simmer.tests.tests_1</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for src.simmer.tests.tests_1</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()[:</span><span class="o">-</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))))</span>
+
+
+<span class="kn">import</span> <span class="nn">flats</span>
+<span class="kn">import</span> <span class="nn">darks</span>
+<span class="kn">import</span> <span class="nn">sky</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">image</span>
+<span class="kn">import</span> <span class="nn">insts</span> <span class="k">as</span> <span class="nn">i</span>
+<span class="kn">import</span> <span class="nn">aodirs</span>
+<span class="kn">import</span> <span class="nn">drivers</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="k">import</span> <span class="n">glob</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">astropy.io.fits</span> <span class="k">as</span> <span class="nn">pyfits</span>
+
+<span class="n">parent_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">))</span>
+<span class="c1"># sys.path.insert(0, os.getcwd()) </span>
+<span class="c1"># parent_dir = os.path.dirname(current_dir)</span>
+<span class="c1"># current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))</span>
+
+
+<div class="viewcode-block" id="TestCreation"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestCreation">[docs]</a><span class="k">class</span> <span class="nc">TestCreation</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+	<span class="n">inst</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">ShARCS</span><span class="p">()</span>
+
+<div class="viewcode-block" id="TestCreation.test_create_darks"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestCreation.test_create_darks">[docs]</a>	<span class="k">def</span> <span class="nf">test_create_darks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing darks&#39;</span><span class="p">)</span>
+		<span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/dark_test/&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/dark_test/&#39;</span>
+		<span class="n">compare_dark</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;compare_dark.fits&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="n">zero</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">compare_dark</span><span class="p">))</span> <span class="c1"># only testing flats</span>
+		<span class="n">darklist</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1357</span><span class="p">,</span> <span class="mi">1360</span><span class="p">)</span>
+		<span class="n">result</span> <span class="o">=</span> <span class="n">darks</span><span class="o">.</span><span class="n">create_darks</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span><span class="p">,</span> <span class="n">darklist</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span><span class="p">)</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;dark_3sec.fits&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assertCountEqual</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">result</span> <span class="o">-</span> <span class="n">compare_dark</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">zero</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestCreation.test_create_flats"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestCreation.test_create_flats">[docs]</a>	<span class="k">def</span> <span class="nf">test_create_flats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing flats&#39;</span><span class="p">)</span>
+		<span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/flat_test/&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/flat_test/&#39;</span>
+		<span class="n">compare_flat</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;compare_flat.fits&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="n">zero</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">compare_flat</span><span class="p">))</span> <span class="c1"># only testing flats</span>
+		<span class="n">flatlist</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1108</span><span class="p">,</span> <span class="mi">1114</span><span class="p">)</span>
+		<span class="n">result</span> <span class="o">=</span> <span class="n">flats</span><span class="o">.</span><span class="n">create_flats</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span><span class="p">,</span> <span class="n">flatlist</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assertCountEqual</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">result</span> <span class="o">-</span> <span class="n">compare_flat</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">zero</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestCreation.test_create_skies"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestCreation.test_create_skies">[docs]</a>	<span class="k">def</span> <span class="nf">test_create_skies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing skies&#39;</span><span class="p">)</span>
+		<span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/sky_test/&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/sky_test/&#39;</span>
+		<span class="n">compare_sky</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;compare_sky.txt&#39;</span><span class="p">)</span>
+		<span class="n">s_dir</span> <span class="o">=</span> <span class="n">raw_dir</span>
+		<span class="n">skylist</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1218</span><span class="p">,</span> <span class="mi">1222</span><span class="p">)</span>
+		<span class="n">result</span> <span class="o">=</span> <span class="n">sky</span><span class="o">.</span><span class="n">create_skies</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span><span class="p">,</span> <span class="n">s_dir</span><span class="p">,</span> <span class="n">skylist</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span><span class="p">)</span>
+		<span class="n">zero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">compare_sky</span><span class="p">))</span>
+
+		<span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;Ks/*&#39;</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+		    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+		<span class="c1"># os.rmdir(raw_dir + &#39;Ks&#39;)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assertCountEqual</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">result</span> <span class="o">-</span> <span class="n">compare_sky</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">zero</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestCreation.test_create_imstack"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestCreation.test_create_imstack">[docs]</a>	<span class="k">def</span> <span class="nf">test_create_imstack</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing imstack&#39;</span><span class="p">)</span>
+		<span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/sky_test/&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/sky_test/&#39;</span>
+		<span class="n">imlist</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1218</span><span class="p">,</span> <span class="mi">1222</span><span class="p">)</span>
+		<span class="n">s_dir</span> <span class="o">=</span> <span class="n">raw_dir</span>
+		<span class="n">result</span><span class="p">,</span> <span class="n">shifts_all</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">create_imstack</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span><span class="p">,</span> <span class="n">s_dir</span><span class="p">,</span> <span class="n">imlist</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span><span class="p">,)</span>
+		<span class="n">compare_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;compare_create_imstack_0&#39;</span><span class="p">,</span> <span class="s1">&#39;compare_create_imstack_1&#39;</span><span class="p">,</span> 
+						<span class="s1">&#39;compare_create_imstack_2&#39;</span><span class="p">,</span> <span class="s1">&#39;compare_create_imstack_3&#39;</span><span class="p">]</span>
+		<span class="n">compare_imstack</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="n">file</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">compare_list</span><span class="p">])</span>
+		<span class="n">zero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">compare_imstack</span><span class="p">))</span>
+		<span class="n">remove_files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sh00.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;sh01.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;sh02.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;sh03.fits&#39;</span><span class="p">,</span> 
+						<span class="s1">&#39;shift1_cube.png&#39;</span><span class="p">,</span> <span class="s1">&#39;shifts.txt&#39;</span><span class="p">]</span>
+		<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">remove_files</span><span class="p">:</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;Ks/</span><span class="si">{f}</span><span class="s1">&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assertCountEqual</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">result</span> <span class="o">-</span> <span class="n">compare_imstack</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">zero</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TestCreation.test_create_im_default"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestCreation.test_create_im_default">[docs]</a>	<span class="k">def</span> <span class="nf">test_create_im_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing default image creation&#39;</span><span class="p">)</span>
+		<span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/sky_test/&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/sky_test/&#39;</span>
+		<span class="n">s_dir</span> <span class="o">=</span> <span class="n">raw_dir</span>
+		<span class="n">compare_final_im</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;Ks/compare_final_im_default.fits&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="n">image</span><span class="o">.</span><span class="n">create_im</span><span class="p">(</span><span class="n">s_dir</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+		<span class="n">final_im</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;Ks/final_im.fits&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="n">zero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">final_im</span><span class="p">))</span>
+		<span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">final_im</span> <span class="o">-</span> <span class="n">compare_final_im</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">zero</span><span class="p">))</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;Ks/final_im.fits&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestCreation.test_create_im_saturated"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestCreation.test_create_im_saturated">[docs]</a>	<span class="k">def</span> <span class="nf">test_create_im_saturated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing saturated image creation&#39;</span><span class="p">)</span>
+		<span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/sky_test/&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/sky_test/&#39;</span>
+		<span class="n">s_dir</span> <span class="o">=</span> <span class="n">raw_dir</span>
+		<span class="n">compare_final_im</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;Ks/compare_final_im.fits&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="n">image</span><span class="o">.</span><span class="n">create_im</span><span class="p">(</span><span class="n">s_dir</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;saturated&#39;</span><span class="p">)</span>
+		<span class="n">final_im</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;Ks/final_im.fits&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="n">zero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">final_im</span><span class="p">))</span>
+		<span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">final_im</span><span class="p">,</span> <span class="n">compare_final_im</span><span class="p">)))</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;Ks/final_im.fits&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="TestDrivers"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestDrivers">[docs]</a><span class="k">class</span> <span class="nc">TestDrivers</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+	<span class="n">inst</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">ShARCS</span><span class="p">()</span> 
+
+<div class="viewcode-block" id="TestDrivers.test_dark_driver"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestDrivers.test_dark_driver">[docs]</a>	<span class="k">def</span> <span class="nf">test_dark_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing dark driver&#39;</span><span class="p">)</span>
+		<span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/dark_test/&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/dark_test/&#39;</span>
+		<span class="n">config</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/test_config.csv&#39;</span><span class="p">)</span>
+		<span class="n">darks</span><span class="o">.</span><span class="n">dark_driver</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span><span class="p">)</span>
+		<span class="n">val</span> <span class="o">=</span> <span class="s1">&#39;dark_3sec.fits&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">)</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;dark_3sec.fits&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDrivers.test_flat_driver"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestDrivers.test_flat_driver">[docs]</a>	<span class="k">def</span> <span class="nf">test_flat_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing flat driver&#39;</span><span class="p">)</span>
+		<span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/flat_test/&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/flat_test/&#39;</span>
+		<span class="n">config</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/test_config.csv&#39;</span><span class="p">)</span>
+		<span class="n">source</span> <span class="o">=</span> <span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;flat_J.fits&#39;</span>
+		<span class="n">dest</span> <span class="o">=</span> <span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;temp.fits&#39;</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
+		<span class="n">flats</span><span class="o">.</span><span class="n">flat_driver</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span><span class="p">)</span>
+		<span class="n">val</span> <span class="o">=</span> <span class="s1">&#39;flat_J.fits&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">)</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;flat_J.fits&#39;</span><span class="p">)</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDrivers.test_sky_driver"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestDrivers.test_sky_driver">[docs]</a>	<span class="k">def</span> <span class="nf">test_sky_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing sky driver&#39;</span><span class="p">)</span>
+		<span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/sky_test/&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/sky_test/&#39;</span>
+		<span class="n">config</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/test_config.csv&#39;</span><span class="p">)</span>
+		<span class="n">sky</span><span class="o">.</span><span class="n">sky_driver</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span><span class="p">)</span>
+		<span class="n">val</span> <span class="o">=</span> <span class="s1">&#39;K09203794&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">)</span>
+		<span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;K09203794/*&#39;</span><span class="p">)</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;K09203794/Ks/sky.fits&#39;</span><span class="p">)</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;K09203794/Ks/sky_cube.png&#39;</span><span class="p">)</span>
+		<span class="c1"># os.rmdir(raw_dir + &#39;K09203794/Ks&#39;)</span>
+		<span class="c1"># os.rmdir(raw_dir + &#39;K09203794&#39;)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDrivers.test_image_driver"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestDrivers.test_image_driver">[docs]</a>	<span class="k">def</span> <span class="nf">test_image_driver</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing image driver&#39;</span><span class="p">)</span>
+		<span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/image_test/&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/image_test/&#39;</span>
+		<span class="n">config</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/test_config.csv&#39;</span><span class="p">)</span>
+		<span class="n">method</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">image_driver</span><span class="p">(</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inst</span><span class="p">)</span>
+		<span class="n">remove_files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sh00.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;sh01.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;sh02.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;sh03.fits&#39;</span><span class="p">,</span> <span class="s1">&#39;shifts.txt&#39;</span><span class="p">]</span>
+		<span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">([</span><span class="n">r</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;K09203794/Ks&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">remove_files</span><span class="p">])</span>
+		<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">remove_files</span><span class="p">:</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="n">f</span><span class="s1">&#39;K09203794/Ks/</span><span class="si">{f}</span><span class="s1">&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="TestIntegration"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestIntegration">[docs]</a><span class="k">class</span> <span class="nc">TestIntegration</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+	<span class="n">p</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">PHARO</span><span class="p">()</span>
+
+<div class="viewcode-block" id="TestIntegration.test_PHARO_integration"><a class="viewcode-back" href="../../../../source/simmer.tests.html#src.simmer.tests.tests_1.TestIntegration.test_PHARO_integration">[docs]</a>	<span class="k">def</span> <span class="nf">test_PHARO_integration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing PHARO integration&#39;</span><span class="p">)</span> <span class="c1"># need better way to get config?</span>
+		<span class="n">drivers</span><span class="o">.</span><span class="n">all_driver</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+		<span class="n">raw_dir</span><span class="p">,</span> <span class="n">reddir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/PHARO_integration/&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/src/simmer/tests/PHARO_integration/&#39;</span>
+		<span class="n">compare_final_im</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;compare_final_im.fits&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="n">final_im</span> <span class="o">=</span> <span class="n">pyfits</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;HIP49081/Br-gamma/final_im.fits&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="n">zero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">final_im</span><span class="p">))</span>
+		<span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">final_im</span><span class="p">,</span> <span class="n">compare_final_im</span><span class="p">)))</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">raw_dir</span> <span class="o">+</span> <span class="s1">&#39;HIP49081/Br-gamma/final_im.fits&#39;</span><span class="p">)</span> <span class="c1"># remove more?</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div></div>
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Arjun B. Savel, Lea Hirsch, Courtney D. Dressing, David Ciardi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
