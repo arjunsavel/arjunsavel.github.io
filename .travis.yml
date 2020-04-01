@@ -11,6 +11,7 @@ deploy:
   edge: 
     branch: 'master'
   verbose: True
+  skip_cleanup: True
 jobs:
   include:
     # - name: "Python 3.5.4 on Windows"
