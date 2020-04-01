@@ -1,43 +1,25 @@
-language: python            # this works for Linux but is an error on macOS or Windows
-# cache: pip
+language: python
 branches:
   only:
-    - master
-
+  - master
 before_install:
-  - openssl aes-256-cbc -K $encrypted_189e52c2c347_key -iv $encrypted_189e52c2c347_iv -in deploy_key.enc -out deploy_key -d
-
+- openssl aes-256-cbc -K $encrypted_189e52c2c347_key -iv $encrypted_189e52c2c347_iv
+  -in deploy_key.enc -out deploy_key -d
 deploy:
   provider: pages
   local_dir: arjunsavel.github.io
   deploy_key: deploy_key
-  edge: 
+  edge:
     branch: master
-  verbose: True
-  skip_cleanup: True
-
+  verbose: true
+  skip_cleanup: true
 jobs:
   include:
-    # - name: "Python 3.5.4 on Windows"
-    #   os: windows           # Windows 10.0.17134 N/A Build 17134
-    #   language: shell       # 'language: python' is an error on Travis CI Windows
-    #   before_install:
-
-    #     - choco install python3 --params "/InstallDir:C:\\Python"
-    #     - set PATH=%PATH%;C:\\Python\
-    #     # - export PATH="/c/Python:/c/Python/Scripts:$PATH"
-    #     - easy_install.exe pip
-    #     - python -m pip install --upgrade pip wheel
-    - name: "Python 3.7.4 on Xenial Linux"
-      python: "3.7.4"
-      before_install: 
-        - pip3 install --upgrade pip
+  - name: Python 3.7.4 on Xenial Linux
+    python: 3.7.4
+    before_install:
+    - pip3 install --upgrade pip
 install:
-  # - pip install -r requirements.txt
-  - pip3 install -r requirements.txt
-# command to run tests
+- pip3 install -r requirements.txt
 script:
-  - python3 -m unittest discover tests
-
-# after_success:
-#   - bash <(curl -s https://codecov.io/bash) -t 9c990c5a-0b27-4918-a5b6-3d5e10d05c4f
+- python3 -m unittest discover tests
