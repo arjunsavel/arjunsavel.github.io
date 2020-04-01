@@ -14,7 +14,7 @@ def get_links(page):
 	"""Returns all the links within a given page."""
 	with open(page, "r", encoding='utf-8') as f:
 		text= f.read()
-		soup = bs(text, "html5lib")
+		soup = bs(text, "html.parser")
 		links = []
 		for a in soup.find_all('a', href=True):
 			links.append(a['href'])
