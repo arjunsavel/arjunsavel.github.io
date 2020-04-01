@@ -12,8 +12,8 @@ commit_website_files() {
 }
 
 upload_files() {
-  git remote add origin-masteter https://github.com/arjunsavel/arjunsavel.github.io > /dev/null 2>&1
-  git push --quiet --set-upstream origin-master master 
+  git remote add origin https://github.com/arjunsavel/arjunsavel.github.io > /dev/null 2>&1
+  git push --quiet --set-upstream origin master 
 }
 
 setup_git
