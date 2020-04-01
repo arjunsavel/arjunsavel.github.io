@@ -2,10 +2,9 @@ language: python
 branches:
   only:
   - master
-before_install:
+before_deploy:
 - openssl aes-256-cbc -K $encrypted_189e52c2c347_key -iv $encrypted_189e52c2c347_iv
   -in deploy_key.enc -out deploy_key -d
-- pip3 install --upgrade pip
 deploy:
   provider: pages:git
   deploy_key: deploy_key
@@ -13,6 +12,9 @@ deploy:
     branch: master
   verbose: true
   skip_cleanup: true
+
+before_install:
+  - pip3 install --upgrade pip
 install:
 - pip3 install -r requirements.txt
 script:
