@@ -22,6 +22,8 @@ commit_website_files() {
 
 upload_files() {
   git remote set-url origin git@github.com:arjunsavel/arjunsavel.github.io.git
+  git checkout website && git merge --no-edit master
+  git merge --continue
 	if ! git push --set-upstream origin master ; then
 	  _err "git push error"
 	fi 
