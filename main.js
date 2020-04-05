@@ -3,29 +3,25 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
+
+// Wait for window load
+	$(window).load(function() {
+		// Animate loader off screen
+		
+		$(".se-pre-con").fadeOut("slow");;
+	});
 // Wrap every letter in a span
-var textWrapper = document.querySelector('.ml13');
+var textWrapper = document.querySelector('.ml3');
 textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 
-anime.timeline({loop: true})
+anime.timeline({loop: false})
   .add({
-    targets: '.ml13 .letter',
-    translateY: [100,0],
-    translateZ: 0,
+    targets: '.ml3 .letter',
     opacity: [0,1],
-    easing: "easeOutExpo",
-    duration: 1400,
-    delay: (el, i) => 300 + 30 * i
-  }).add({
-    targets: '.ml13 .letter',
-    translateY: [0,-100],
-    opacity: [1,0],
-    easing: "easeInExpo",
-    duration: 1200,
-    delay: (el, i) => 100 + 30 * i
+    easing: "easeInOutQuad",
+    duration: 2250,
+    delay: (el, i) => 10 * (i+1)
   });
-
-  
 
 (function($) {
 
