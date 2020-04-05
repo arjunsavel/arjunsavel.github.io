@@ -18,8 +18,8 @@ anime.timeline({loop: false})
   .add({
     targets: '.ml3 .letter',
     opacity: [0,1],
-    easing: "easeInOutQuad",
-    duration: 2250,
+    easing: "easeInOutSine",
+    duration: 3250,
     delay: (el, i) => 10 * (i+1)
   });
 
