@@ -54,7 +54,7 @@ class TestLinks(unittest.TestCase):
 		else:
 			links = get_links(page)
 		for link in links:
-			if link[:4] == 'http': # if it's an external link
+			if link[:4] == 'http' and 'orcid' not in link: # if it's an external link that's not ORCID
 				try:
 					urlopen(link)
 				except urllib.error.HTTPError: # website doesn't exist
