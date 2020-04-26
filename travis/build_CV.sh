@@ -22,4 +22,6 @@ git clone https://github.com/arjunsavel/CV
 # Build the paper using tectonic
 cd CV
 tectonic main.tex --print
-mv main.pdf CV_Savel.pdf
+cd ..
+mv CV/main.pdf PDFs/CV_Savel.pdf
+rm -rf CV
