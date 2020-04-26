@@ -17,8 +17,7 @@ if [ -d "$FILE" ]
 then
     rm -r CV
 fi
-git clone https://git.overleaf.com/5ea536deb615250001c1ad20
-mv 5ea536deb615250001c1ad20 CV
+git clone https://github.com/arjunsavel/CV
 
 # Build the paper using tectonic
 cd CV
