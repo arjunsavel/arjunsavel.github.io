@@ -41,7 +41,6 @@ class TestLinks(unittest.TestCase):
 				except FileNotFoundError: # internal link doesn't exist doesn't exist
 					good_link = False 
 		asyncio.set_event_loop(asyncio.new_event_loop())
-
 		self.assertTrue(good_link)
 
 
@@ -54,11 +53,11 @@ class TestLinks(unittest.TestCase):
 		else:
 			links = get_links(page)
 		for link in links:
-			if link[:4] == 'http' and 'orcid' not in link: # if it's an external link that's not ORCID
+			if link[:4] == 'http' and 'orcid' not in link and 'linkedin' not in link: # if it's an external link that's not ORCID
 				try:
 					urlopen(link)
 				except urllib.error.HTTPError: # website doesn't exist
-					good_link = False 
+					good_link = False
 			elif link[:4] != 'http' and link[:-4] == 'html': # if it's an internal link
 				self.test_external_html(page=link)
 		asyncio.set_event_loop(asyncio.new_event_loop())
