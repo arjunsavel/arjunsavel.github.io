@@ -2657,11 +2657,11 @@ input, select, textarea {
 	}
 
 		#footer .icons a {
-			color: rgba(255, 255, 255, 0.4);
+			color: rgba(0, 0, 0, 0.4);
 		}
 
 	#footer .copyright {
-		color: rgba(255, 255, 255, 0.4);
+		color: rgba(0, 0, 0, 0.4);
 		font-size: 0.8em;
 		list-style: none;
 		margin: 1em 0 0 0;
@@ -2669,7 +2669,7 @@ input, select, textarea {
 	}
 
 		#footer .copyright li {
-			border-left: solid 1px rgba(255, 255, 255, 0.25);
+			border-left: solid 1px rgba(0, 0, 0, 0.25);
 			display: inline-block;
 			line-height: 1em;
 			margin-left: 0.75em;
@@ -3212,7 +3212,7 @@ input, select, textarea {
 		-webkit-flex-wrap: wrap;
 		-ms-flex-wrap: wrap;
 		flex-wrap: wrap;
-		postiion: relative;
+		position: relative;
 		margin: -2.5em 0 0 -2.5em;
 	}
 
@@ -3346,7 +3346,7 @@ input, select, textarea {
 					}
 
 			.tiles article.style1 > .image:before {
-				background-color: #f2849e;
+				background-color: #ffffff;
 			}
 
 			.tiles article.style2 > .image:before {
@@ -3377,7 +3377,7 @@ input, select, textarea {
 			}
 
 				body:not(.is-touch) .tiles article:hover > .image:before {
-					background-color: #333333;
+					background-color: #FFFFFF;
 					opacity: 0.35;
 				}
 
@@ -3492,5 +3492,5 @@ input, select, textarea {
 
 	}
 body {
-  background-color: #111116;
+  background-color: #ffffff;
 }
