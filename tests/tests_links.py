@@ -2,7 +2,7 @@ import os
 import unittest
 import webbrowser
 import urllib
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup as bs
 import codecs
 import asyncio
@@ -55,9 +55,11 @@ class TestLinks(unittest.TestCase):
 		for link in links:
 			if link[:4] == 'http' and 'orcid' not in link and 'linkedin' not in link: # if it's an external link that's not ORCID
 				try:
-					urlopen(link)
+					r = Request(link, headers={'User-Agent': 'Mozilla/5.0'})
+					urlopen(r).read()
 				except urllib.error.HTTPError: # website doesn't exist
 					good_link = False
+					print(link)
 			elif link[:4] != 'http' and link[:-4] == 'html': # if it's an internal link
 				self.test_external_html(page=link)
 		asyncio.set_event_loop(asyncio.new_event_loop())
