@@ -15,7 +15,7 @@ body {
   font-weight: 300;
   line-height: 1.42em;
   color:#A7A1AE;
-  background-color:#1F2739;
+  background-color:#FFFF;
 }
 
 h1 {
@@ -87,7 +87,7 @@ h2 a {
 }
 
 .container th {
-    background-color: #1F2739;
+    background-color: #FFFF;
 }
 
 .container td:first-child {
