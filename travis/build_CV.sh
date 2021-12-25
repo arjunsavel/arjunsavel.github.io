@@ -10,6 +10,8 @@ conda info -a
 conda create --yes -n paper
 source activate paper
 conda install -c conda-forge -c pkgw-forge tectonic
+npm install --save @fortawesome/fontawesome-free
+
 
 # Clone the code
 FILE=CV # if there's already a CV folder
