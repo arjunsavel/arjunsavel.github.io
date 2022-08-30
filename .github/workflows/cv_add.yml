@@ -29,19 +29,8 @@ jobs:
     - name: download CV
       run: |
         git clone https://github.com/arjunsavel/CV
-        echo pwd
-        pwd
-    - uses: xu-cheng/latex-action@v2
-      with:
-        root_file: main.tex
-      env:
-        TEXINPUTS: .:$PWD/CV/ 
-
-    - name: clean up
-      run: |
-        mv CV/main.pdf PDFs/CV_Savel.pdf
+        echo mv CV/main.pdf PDFs/CV_Savel.pdf
         rm -rf CV
-        
     - run: git pull
           
     - name: Committing changes
