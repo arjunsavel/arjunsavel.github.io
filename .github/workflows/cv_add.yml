@@ -32,9 +32,9 @@ jobs:
         echo pwd
         pwd
     - uses: xu-cheng/latex-action@v2
-      with:
-        root_file: |
-          /home/runner/work/arjunsavel.github.io/arjunsavel.github.io/CV/main.tex 
+      env:
+        TEXINPUTS: .:$PWD/CV/ 
+
     - name: clean up
       run: |
         mv CV/main.pdf PDFs/CV_Savel.pdf
