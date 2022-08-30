@@ -31,6 +31,7 @@ jobs:
     - name: build CV
       run: |
         conda create --name myenv
+        conda init bash
         conda activate myenv
         conda install -c conda-forge -c pkgw-forge tectonic
         git clone https://github.com/arjunsavel/CV
