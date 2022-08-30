@@ -35,6 +35,7 @@ jobs:
         conda install -c conda-forge -c pkgw-forge tectonic
         git clone https://github.com/arjunsavel/CV
         cd CV
+        npm install --save @fortawesome/fontawesome-free
         tectonic main.tex --print
         cd ..
         mv CV/main.pdf PDFs/CV_Savel.pdf
