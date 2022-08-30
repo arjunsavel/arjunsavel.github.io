@@ -31,7 +31,7 @@ jobs:
     - name: build CV
       run: |
         conda create --name myenv
-        eval "$(conda shell.bash hook)"; conda activate <env-name>;
+        eval "$(conda shell.bash hook)"; conda activate myenv;
         conda install -c conda-forge -c pkgw-forge tectonic
         git clone https://github.com/arjunsavel/CV
         cd CV
