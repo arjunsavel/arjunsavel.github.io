@@ -29,11 +29,10 @@ jobs:
     - name: download CV
       run: |
         git clone https://github.com/arjunsavel/CV
-        cd CV
     - uses: xu-cheng/latex-action@v2
       with:
         root_file: |
-          main.tex 
+          CV/main.tex 
     - name: clean up
       run: |
         mv CV/main.pdf PDFs/CV_Savel.pdf
