@@ -29,7 +29,7 @@ jobs:
     - name: download CV
       run: |
         git clone https://github.com/arjunsavel/CV
-        echo mv CV/main.pdf PDFs/CV_Savel.pdf
+        mv CV/main.pdf PDFs/CV_Savel.pdf
         rm -rf CV
     - run: git pull
           
