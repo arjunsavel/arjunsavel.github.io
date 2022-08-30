@@ -32,8 +32,9 @@ jobs:
         echo pwd
         pwd
     - uses: xu-cheng/latex-action@v2
-      env:
+      with:
         root_file: main.tex
+      env:
         TEXINPUTS: .:$PWD/CV/ 
 
     - name: clean up
