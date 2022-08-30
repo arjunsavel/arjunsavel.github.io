@@ -34,7 +34,7 @@ jobs:
     - uses: xu-cheng/latex-action@v2
       with:
         root_file: |
-          CV/main.tex 
+          /home/runner/work/arjunsavel.github.io/arjunsavel.github.io/CV/main.tex 
     - name: clean up
       run: |
         mv CV/main.pdf PDFs/CV_Savel.pdf
