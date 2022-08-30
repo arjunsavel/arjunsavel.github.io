@@ -37,6 +37,7 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Build CV
+        add: 'PDFs/CV_Savel.pdf'
         
         
     
