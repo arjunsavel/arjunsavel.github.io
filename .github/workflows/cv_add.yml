@@ -26,18 +26,16 @@ jobs:
       uses: actions/setup-python@master
       with:
         python-version: 3.7
-    # Runs a single command using the runners shell
-    - uses: conda-incubator/setup-miniconda@v2
-    - name: build CV
+    - name: download CV
       run: |
-        conda create --name myenv
-        eval "$(conda shell.bash hook)"; conda activate myenv;
-        conda install -c conda-forge -c pkgw-forge tectonic
         git clone https://github.com/arjunsavel/CV
         cd CV
-        npm install --save @fortawesome/fontawesome-free
-        tectonic main.tex --print
-        cd ..
+    - uses: xu-cheng/latex-action@v2
+      with:
+        root_file: |
+          main.tex 
+    - name: clean up
+      run: |
         mv CV/main.pdf PDFs/CV_Savel.pdf
         rm -rf CV
         
