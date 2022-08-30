@@ -37,17 +37,10 @@ jobs:
         python-version: 3.7
     # Runs a single command using the runners shell
     - uses: conda-incubator/setup-miniconda@v2
-    
-    - name: install dependencies
-      run: |
-        conda install -c conda-forge -c pkgw-forge tectonic
-        
-    - name: clone repo
-      run: |
-        git clone https://github.com/arjunsavel/CV
-        
     - name: build CV
       run: |
+        conda install -c conda-forge -c pkgw-forge tectonic
+        git clone https://github.com/arjunsavel/CV
         cd CV
         tectonic main.tex --print
         cd ..
