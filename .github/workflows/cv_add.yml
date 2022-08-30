@@ -7,7 +7,7 @@ on:
   schedule:
     # * is a special character in YAML so you have to quote this string
     # runs once a day
-   - cron: '*/5 */* */1 * *'
+   - cron: '*/6 */* */1 * *'
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
