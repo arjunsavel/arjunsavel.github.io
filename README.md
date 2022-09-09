@@ -1,6 +1,3 @@
-[![Build Status](https://travis-ci.com/arjunsavel/arjunsavel.github.io.svg?branch=website
-)](https://travis-ci.com/arjunsavel/arjunsavel.github.io)
+[![pages-build-deployment](https://github.com/arjunsavel/arjunsavel.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/arjunsavel/arjunsavel.github.io/actions/workflows/pages/pages-build-deployment) [![Update CV](https://github.com/arjunsavel/arjunsavel.github.io/actions/workflows/cv_add.yml/badge.svg)](https://github.com/arjunsavel/arjunsavel.github.io/actions/workflows/cv_add.yml) [![Update hi-res literature database](https://github.com/arjunsavel/arjunsavel.github.io/actions/workflows/hires_database_add.yml/badge.svg)](https://github.com/arjunsavel/arjunsavel.github.io/actions/workflows/hires_database_add.yml)
 
-my website! 
-
-![Flowchart](https://github.com/arjunsavel/arjunsavel.github.io/blob/website/images/website_flowchart.png)
+my website! it's somewhat automated.

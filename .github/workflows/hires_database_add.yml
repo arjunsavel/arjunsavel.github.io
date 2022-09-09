@@ -1,13 +1,13 @@
 # This is a basic workflow that is manually triggered
 
-name: Update CV
+name: Update hi-res literature database
 
 
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
     # runs once a day
-   - cron: '5/60 */24 * * *'
+   - cron: '8/60 */24 * * *'
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -28,18 +28,13 @@ jobs:
         python-version: 3.7
     - name: download CV
       run: |
-        git clone https://github.com/arjunsavel/CV
-        mv CV/main.pdf PDFs/CV_Savel.pdf
-        rm -rf CV
+        git clone https://github.com/arjunsavel/hires-literature
+        mv hires-literature/plots/*.jpg images/
+        rm -rf hires-literature
     - run: git pull
           
     - name: Committing changes
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Build CV
-        add: 'PDFs/CV_Savel.pdf'
-        
-        
-    
-        
-        
+        add: '*.jpg'
