@@ -2062,13 +2062,16 @@ input, select, textarea {
 			display: block;
 			height: 100%;
 			left: 0;
-			opacity: 0.5;
+			opacity: 0.0;
 			position: absolute;
 			top: 0;
 			width: 100%;
 		}
 
 		.image.thumb {
+			text-align: center;
+		}
+		.image.thumb2 {
 			text-align: center;
 		}
 
@@ -3221,6 +3224,12 @@ input, select, textarea {
 			-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
 			-ms-transition: -ms-transform 0.5s ease, opacity 0.5s ease;
 			transition: transform 0.5s ease, opacity 0.5s ease;
+			position: relative;
+			width: calc(33.33333% - 2.5em);
+			margin: 2.5em 0 0 2.5em;
+		}
+
+		tiles article2 {
 			position: relative;
 			width: calc(33.33333% - 2.5em);
 			margin: 2.5em 0 0 2.5em;
