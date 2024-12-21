@@ -36,7 +36,7 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@master
       with:
-        python-version: 3.7
+        python-version: 3.11
     - name: download CV
       run: |
         git clone https://github.com/arjunsavel/CV
